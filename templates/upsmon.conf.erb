@@ -1,0 +1,11 @@
+RUN_AS_USER <%= @user %>
+MINSUPPLIES <%= @minimum_supplies %>
+SHUTDOWNCMD "<%= @shutdown_command %>"
+POLLFREQ 5
+POLLFREQALERT 5
+HOSTSYNC 15
+DEADTIME 15
+POWERDOWNFLAG <%= @conf_dir %>/killpower
+RBWARNTIME 43200
+NOCOMMWARNTIME 300
+FINALDELAY 5

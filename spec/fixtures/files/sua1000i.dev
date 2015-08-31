@@ -1,0 +1,49 @@
+battery.charge: 100
+battery.charge.low: 10
+battery.charge.warning: 50
+battery.mfr.date: 2011/15/02
+battery.runtime: 474
+battery.runtime.low: 12
+battery.temperature: 27.4
+battery.type: PbAc
+battery.voltage: 27.5
+battery.voltage.nominal: 24.0
+device.mfr: American Power Conversion
+device.model: Smart-UPS 1000
+device.serial: AS0123456789
+device.type: ups
+driver.name: usbhid-ups
+driver.parameter.bus: 004
+driver.parameter.pollfreq: 30
+driver.parameter.pollinterval: 2
+driver.parameter.port: auto
+driver.parameter.productid: 0002
+driver.parameter.vendorid: 051D
+driver.version: 2.7.2
+driver.version.data: APC HID 0.95
+driver.version.internal: 0.38
+input.sensitivity: high
+input.transfer.high: 253
+input.transfer.low: 208
+input.voltage: 252.0
+output.frequency: 50.0
+output.voltage: 223.2
+output.voltage.nominal: 230.0
+ups.alarm: No battery installed!
+ups.beeper.status: enabled
+ups.delay.shutdown: 20
+ups.delay.start: 30
+ups.firmware: 600.1.I
+ups.firmware.aux: 1.2
+ups.load: 12.3
+ups.mfr: American Power Conversion
+ups.mfr.date: 2001/07/12
+ups.model: Smart-UPS 1000
+ups.productid: 0002
+ups.serial: AS0123456789
+ups.status: ALARM OL
+ups.test.result: No test initiated
+ups.timer.reboot: -1
+ups.timer.shutdown: -1
+ups.timer.start: -1
+ups.vendorid: 051d

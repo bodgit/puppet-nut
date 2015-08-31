@@ -1,0 +1,48 @@
+{
+  "name": "bodgit-nut",
+  "version": "1.0.0",
+  "author": "bodgit",
+  "summary": "Puppet Module for managing Network UPS Tools (NUT)",
+  "license": "Apache-2.0",
+  "source": "https://github.com/bodgit/puppet-nut",
+  "project_page": "https://github.com/bodgit/puppet-nut",
+  "issues_url": "https://github.com/bodgit/puppet-nut/issues",
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "5.7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": "3.x"
+    }
+  ],
+  "tags": [
+    "nut",
+    "ups"
+  ],
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.6.0 <5.0.0"
+    },
+    {
+      "name": "puppetlabs/concat",
+      "version_requirement": ">=1.2.4 <2.0.0"
+    },
+    {
+      "name": "stahnma/epel",
+      "version_requirement": ">=1.0.0 <2.0.0"
+    }
+  ]
+}
