@@ -3,7 +3,10 @@ define nut::client::ups (
   $user,
   $password,
   $powervalue = 1,
-  $type       = 'master'
+  $type       = $name ? {
+    /@localhost(:\d+)?$/ => 'master',
+    default              => 'slave',
+  },
 ) {
 
   if ! defined(Class['::nut::client']) {

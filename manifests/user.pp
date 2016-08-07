@@ -13,7 +13,7 @@ define nut::user (
   validate_array($actions)
   validate_array($instcmds)
   if $upsmon {
-    validate_regex($upsmon, '^(?:master|slave)$')
+    validate_re($upsmon, '^(?:master|slave)$')
   }
   validate_string($password)
 

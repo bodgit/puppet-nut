@@ -1,6 +1,6 @@
 require 'spec_helper_acceptance'
 
-describe 'nut' do
+describe 'nut::client' do
 
   case fact('osfamily')
   when 'OpenBSD'
@@ -8,13 +8,13 @@ describe 'nut' do
     group    = 'wheel'
     mode     = 600
     owner    = '_ups'
-    service  = 'upsd'
+    service  = 'upsmon'
   when 'RedHat'
     conf_dir = '/etc/ups'
     group    = 'nut'
     mode     = 640
     owner    = 'root'
-    service  = 'nut-server'
+    service  = 'nut-monitor'
   end
 
   it 'should work with no errors' do
@@ -47,49 +47,31 @@ describe 'nut' do
         password => 'password',
         upsmon   => 'master',
       }
+
+      include ::nut::client
+
+      ::nut::client::ups { 'dummy@localhost':
+        user     => 'test',
+        password => 'password',
+      }
+
+      Class['::nut'] ~> Class['::nut::client']
     EOS
 
     apply_manifest(pp, :catch_failures => true)
     apply_manifest(pp, :catch_changes  => true)
   end
 
-  describe file("#{conf_dir}/ups.conf") do
+  describe file("#{conf_dir}/upsmon.conf") do
     it { should be_file }
     it { should be_mode mode }
     it { should be_owned_by owner }
     it { should be_grouped_into group }
-    its(:content) do
-      should eq <<-EOS.gsub(/^ +/, '')
-        # !!! Managed by Puppet !!!
-        [dummy]
-        	driver = "dummy-ups"
-        	port = "sua1000i.dev"
-      EOS
-    end
-  end
-
-  describe file("#{conf_dir}/upsd.users") do
-    it { should be_file }
-    it { should be_mode mode }
-    it { should be_owned_by owner }
-    it { should be_grouped_into group }
-    its(:content) do
-      should eq <<-EOS.gsub(/^ +/, '')
-        # !!! Managed by Puppet !!!
-        [test]
-        	password = password
-        	upsmon master
-      EOS
-    end
+    its(:content) { should match /^MONITOR dummy@localhost 1 test password master$/ }
   end
 
   describe service(service) do
     it { should be_enabled }
     it { should be_running }
-  end
-
-  describe command('upsc dummy') do
-    its(:exit_status) { should eq 0 }
-    its(:stdout) { should match /^ups\.model: Smart-UPS 1000$/ }
   end
 end

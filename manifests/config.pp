@@ -1,6 +1,8 @@
 #
 class nut::config {
 
+  $conf_dir = $::nut::conf_dir
+
   case $::osfamily { # lint:ignore:case_without_default
     'OpenBSD': {
       $owner = $::nut::user
@@ -32,21 +34,22 @@ class nut::config {
     mode   => '0644',
   })
 
-  ::concat { "${::nut::conf_dir}/ups.conf":
+  ::concat { "${conf_dir}/ups.conf":
     owner => $owner,
     group => $group,
     mode  => $mode,
     warn  => '# !!! Managed by Puppet !!!',
   }
 
-  ::concat { "${::nut::conf_dir}/upsd.users":
+  ::concat { "${conf_dir}/upsd.users":
     owner => $owner,
     group => $group,
     mode  => $mode,
     warn  => '# !!! Managed by Puppet !!!',
   }
 
-  file { "${::nut::conf_dir}/upsd.conf":
+  # FIXME
+  file { "${conf_dir}/upsd.conf":
     ensure => file,
     owner  => $owner,
     group  => $group,
