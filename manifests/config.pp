@@ -1,58 +1,76 @@
-#
+# @!visibility private
 class nut::config {
 
-  $conf_dir = $::nut::conf_dir
+  $certfile    = $::nut::certfile
+  $certident   = $::nut::certident
+  $certpath    = $::nut::certpath
+  $certrequest = $::nut::certrequest
+  $conf_dir    = $::nut::conf_dir
+  $group       = $::nut::group
+  $listen      = $::nut::listen
+  $maxage      = $::nut::maxage
+  $maxconn     = $::nut::maxconn
+  $statepath   = $::nut::statepath
+  $user        = $::nut::user
 
-  case $::osfamily { # lint:ignore:case_without_default
-    'OpenBSD': {
-      $owner = $::nut::user
-      $group = 0
-      $mode  = '0600'
-    }
+  case $::osfamily {
     'RedHat': {
-      $owner = 0
-      $group = $::nut::group
-      $mode  = '0640'
 
       # So udev rules take effect
-      exec { 'udevadm trigger':
-        path        => [
-          '/sbin',
-          '/usr/sbin',
-          '/bin',
-          '/usr/bin',
-        ],
+      ensure_resource('exec', 'udevadm trigger', {
+        path        => $::path,
         refreshonly => true,
-      }
+      })
+    }
+    default: {
+      # noop
     }
   }
 
-  ensure_resource('file', $::nut::conf_dir, {
+  ensure_resource('group', $group, {
+    ensure => present,
+    system => true,
+  })
+
+  ensure_resource('user', $user, {
+    ensure => present,
+    gid    => $group,
+    system => true,
+  })
+
+  ensure_resource('file', $conf_dir, {
     ensure => directory,
     owner  => 0,
     group  => 0,
     mode   => '0644',
   })
 
+  ensure_resource('file', $statepath, {
+    ensure => directory,
+    owner  => $user,
+    group  => $group,
+    mode   => '0640',
+  })
+
   ::concat { "${conf_dir}/ups.conf":
-    owner => $owner,
+    owner => 0,
     group => $group,
-    mode  => $mode,
-    warn  => '# !!! Managed by Puppet !!!',
+    mode  => '0640',
+    warn  => "# !!! Managed by Puppet !!!\n\n",
   }
 
   ::concat { "${conf_dir}/upsd.users":
-    owner => $owner,
+    owner => 0,
     group => $group,
-    mode  => $mode,
-    warn  => '# !!! Managed by Puppet !!!',
+    mode  => '0640',
+    warn  => "# !!! Managed by Puppet !!!\n\n",
   }
 
-  # FIXME
   file { "${conf_dir}/upsd.conf":
-    ensure => file,
-    owner  => $owner,
-    group  => $group,
-    mode   => $mode,
+    ensure  => file,
+    owner   => 0,
+    group   => $group,
+    mode    => '0640',
+    content => template("${module_name}/upsd.conf.erb"),
   }
 }

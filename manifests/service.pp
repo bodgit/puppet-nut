@@ -1,4 +1,4 @@
-#
+# @!visibility private
 class nut::service {
 
   service { $::nut::service_name:

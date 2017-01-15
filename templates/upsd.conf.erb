@@ -1,0 +1,28 @@
+# !!! Managed by Puppet !!!
+
+<% if @maxage -%>
+MAXAGE <%= @maxage %>
+<% end -%>
+<% if @statepath -%>
+STATEPATH <%= @statepath %>
+<% end -%>
+<% if @listen -%>
+<%   @listen.each do |x| -%>
+LISTEN <%= x['address'] %><%= " #{x['port']}" if x.include?('port') %>
+<%   end -%>
+<% end -%>
+<% if @maxconn -%>
+MAXCONN <%= @maxconn %>
+<% end -%>
+<% if @certfile -%>
+CERTFILE <%= @certfile %>
+<% end -%>
+<% if @certpath -%>
+CERTPATH <%= @certpath %>
+<% end -%>
+<% if @certident -%>
+CERTIDENT "<%= @certident[0] %>" "<%= @certident[1] %>"
+<% end -%>
+<% if @certrequest -%>
+CERTREQUEST <%= @certrequest.upcase %>
+<% end -%>

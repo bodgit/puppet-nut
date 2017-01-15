@@ -1,23 +1,33 @@
-#
+# @!visibility private
 class nut::cgi::config {
 
   $conf_dir = $::nut::cgi::conf_dir
+  $group    = $::nut::cgi::group
+  $user     = $::nut::cgi::user
 
-  case $::osfamily { # lint:ignore:case_without_default
-    'OpenBSD': {
-      #$owner = $::nut::user
-      #$group = 0
-      #$mode  = '0600'
-    }
-    'RedHat': {
-    }
-  }
+  ensure_resource('group', $group, {
+    ensure => present,
+    system => true,
+  })
+
+  ensure_resource('user', $user, {
+    ensure => present,
+    gid    => $group,
+    system => true,
+  })
+
+  ensure_resource('file', $conf_dir, {
+    ensure => directory,
+    owner  => 0,
+    group  => 0,
+    mode   => '0644',
+  })
 
   ::concat { "${conf_dir}/hosts.conf":
     owner => 0,
     group => 0,
     mode  => '0644',
-    warn  => '# !!! Managed by Puppet !!!',
+    warn  => "# !!! Managed by Puppet !!!\n\n",
   }
 
   file { "${conf_dir}/upsset.conf":
@@ -29,16 +39,21 @@ class nut::cgi::config {
   }
 
   if $::nut::cgi::manage_vhost {
-    case $::osfamily { # lint:ignore:case_without_default
-      'OpenBSD': {
-      }
-      'RedHat': {
-        ::apache::vhost { 'nut':
-          servername  => "nut.${::domain}",
-          port        => 80,
-          docroot     => '/var/www/html',
-          scriptalias => '/var/www/nut-cgi-bin',
+    case $::nut::cgi::http_server {
+      'apache': {
+        $::nut::cgi::apache_resources.each |$type,$resources| {
+          $resources.each |$instance,$attributes| { # lint:ignore:variable_scope
+            Resource[$type] { # lint:ignore:variable_scope
+              $instance: * => $attributes;
+            }
+          }
         }
+      }
+      'httpd': {
+        # TODO
+      }
+      default: {
+        # noop
       }
     }
   }

@@ -1,11 +1,50 @@
 RUN_AS_USER <%= @user %>
-MINSUPPLIES <%= @minimum_supplies %>
-SHUTDOWNCMD "<%= @shutdown_command %>"
-POLLFREQ 5
-POLLFREQALERT 5
-HOSTSYNC 15
-DEADTIME 15
+MINSUPPLIES <%= @minsupplies %>
+SHUTDOWNCMD "<%= @shutdowncmd %>"
+<% if @pollfreq -%>
+POLLFREQ <%= @pollfreq %>
+<% end -%>
+<% if @pollfreqalert -%>
+POLLFREQALERT <%= @pollfreqalert %>
+<% end -%>
+<% if @hostsync -%>
+HOSTSYNC <%= @hostsync %>
+<% end -%>
+<% if @deadtime -%>
+DEADTIME <%= @deadtime %>
+<% end -%>
 POWERDOWNFLAG <%= @conf_dir %>/killpower
-RBWARNTIME 43200
-NOCOMMWARNTIME 300
-FINALDELAY 5
+<% if @rbwarntime -%>
+RBWARNTIME <%= @rbwarntime %>
+<% end -%>
+<% if @nocommwarntime -%>
+NOCOMMWARNTIME <%= @nocommwarntime %>
+<% end -%>
+<% if @finaldelay -%>
+FINALDELAY <%= @finaldelay %>
+<% end -%>
+<% if @notifycmd -%>
+NOTIFYCMD "<%= @notifycmd %>"
+<% end -%>
+<% if @notifymsg -%>
+<%   @notifymsg.each do |k,v| -%>
+NOTIFYMSG <%= k.upcase %> "<%= v %>"
+<%   end -%>
+<% end -%>
+<% if @notifyflag -%>
+<%   @notifyflag.each do |k,v| -%>
+NOTIFYFLAG <%= k.upcase %> <%= v.reject { |x| !x }.length > 0 ? ['SYSLOG', 'WALL', 'EXEC'].zip(v).delete_if { |x,y| !y }.map { |x| x[0] }.join('+') : 'IGNORE' %>
+<%   end -%>
+<% end -%>
+<% if @certpath -%>
+CERTPATH <%= @certpath %>
+<% end -%>
+<% if @certident -%>
+CERTIDENT "<%= @certident[0] %>" "<%= @certident[1] %>"
+<% end -%>
+<% unless @certverify.nil? -%>
+CERTVERIFY <%= @certverify ? 1 : 0 %>
+<% end -%>
+<% unless @forcessl.nil? -%>
+FORCESSL <%= @forcessl ? 1 : 0 %>
+<% end -%>

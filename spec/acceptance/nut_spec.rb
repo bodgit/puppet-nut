@@ -4,17 +4,17 @@ describe 'nut' do
 
   case fact('osfamily')
   when 'OpenBSD'
-    conf_dir = '/etc/nut'
-    group    = 'wheel'
-    mode     = 600
-    owner    = '_ups'
-    service  = 'upsd'
+    conf_dir  = '/etc/nut'
+    group     = '_ups'
+    service   = 'upsd'
+    state_dir = '/var/db/nut'
+    user      = '_ups'
   when 'RedHat'
-    conf_dir = '/etc/ups'
-    group    = 'nut'
-    mode     = 640
-    owner    = 'root'
-    service  = 'nut-server'
+    conf_dir  = '/etc/ups'
+    group     = 'nut'
+    service   = 'nut-server'
+    state_dir = '/var/run/nut'
+    user      = 'nut'
   end
 
   it 'should work with no errors' do
@@ -22,12 +22,19 @@ describe 'nut' do
     pp = <<-EOS
       Package {
         source => $::osfamily ? {
-          'OpenBSD' => "http://ftp.openbsd.org/pub/OpenBSD/${::operatingsystemrelease}/packages/${::architecture}/",
+          # $::architecture fact has gone missing on facter 3.x package currently installed
+          'OpenBSD' => "http://ftp.openbsd.org/pub/OpenBSD/${::operatingsystemrelease}/packages/amd64/",
           default   => undef,
         },
       }
 
       include ::nut
+
+      if $::osfamily == 'RedHat' {
+        include ::epel
+
+        Class['::epel'] -> Class['::nut']
+      }
 
       ::nut::ups { 'dummy':
         driver => 'dummy-ups',
@@ -55,12 +62,13 @@ describe 'nut' do
 
   describe file("#{conf_dir}/ups.conf") do
     it { should be_file }
-    it { should be_mode mode }
-    it { should be_owned_by owner }
+    it { should be_mode 640 }
+    it { should be_owned_by 'root' }
     it { should be_grouped_into group }
     its(:content) do
       should eq <<-EOS.gsub(/^ +/, '')
         # !!! Managed by Puppet !!!
+
         [dummy]
         	driver = "dummy-ups"
         	port = "sua1000i.dev"
@@ -70,17 +78,25 @@ describe 'nut' do
 
   describe file("#{conf_dir}/upsd.users") do
     it { should be_file }
-    it { should be_mode mode }
-    it { should be_owned_by owner }
+    it { should be_mode 640 }
+    it { should be_owned_by 'root' }
     it { should be_grouped_into group }
     its(:content) do
       should eq <<-EOS.gsub(/^ +/, '')
         # !!! Managed by Puppet !!!
+
         [test]
         	password = password
         	upsmon master
       EOS
     end
+  end
+
+  describe file(state_dir) do
+    it { should be_directory }
+    it { should be_mode 750 }
+    it { should be_owned_by user }
+    it { should be_grouped_into group }
   end
 
   describe service(service) do

@@ -9,22 +9,40 @@
   "issues_url": "https://github.com/bodgit/puppet-nut/issues",
   "operatingsystem_support": [
     {
-      "operatingsystem": "OpenBSD",
-      "operatingsystemrelease": [
-        "5.7"
-      ]
-    },
-    {
       "operatingsystem": "RedHat",
       "operatingsystemrelease": [
         "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OracleLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "Scientific",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "OpenBSD",
+      "operatingsystemrelease": [
+        "6.0"
       ]
     }
   ],
   "requirements": [
     {
       "name": "puppet",
-      "version_requirement": "3.x"
+      "version_requirement": ">=4.4.0 <5.0.0"
     }
   ],
   "tags": [
@@ -34,14 +52,18 @@
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
-      "version_requirement": ">=4.6.0 <5.0.0"
+      "version_requirement": ">=4.13.0 <5.0.0"
+    },
+    {
+      "name": "thrnio/ip",
+      "version_requirement": ">=1.0.0 <2.0.0"
     },
     {
       "name": "puppetlabs/concat",
-      "version_requirement": ">=1.2.4 <2.0.0"
+      "version_requirement": ">=2.1.0 <3.0.0"
     },
     {
-      "name": "stahnma/epel",
+      "name": "puppetlabs/apache",
       "version_requirement": ">=1.0.0 <2.0.0"
     }
   ]

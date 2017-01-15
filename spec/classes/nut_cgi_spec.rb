@@ -20,8 +20,6 @@ describe 'nut::cgi' do
         })
       end
 
-      it { should contain_anchor('nut::cgi::begin') }
-      it { should contain_anchor('nut::cgi::end') }
       it { should contain_class('nut::cgi') }
       it { should contain_class('nut::cgi::config') }
       it { should contain_class('nut::cgi::install') }
@@ -29,13 +27,22 @@ describe 'nut::cgi' do
 
       case facts[:osfamily]
       when 'OpenBSD'
-        it { should contain_concat('/etc/nut/hosts.conf') }
-        it { should contain_file('/etc/nut/upsset.conf') }
+        it { should contain_concat('/var/www/conf/nut/hosts.conf') }
+        it { should contain_file('/var/www/conf/nut/upsset.conf') }
+        it { should contain_group('_ups') }
         it { should contain_package('nut-cgi') }
+        it { should contain_user('_ups') }
       when 'RedHat'
+        let(:pre_condition) do
+          'include ::apache'
+        end
+
+        it { should contain_apache__vhost('nut') }
         it { should contain_concat('/etc/ups/hosts.conf') }
         it { should contain_file('/etc/ups/upsset.conf') }
+        it { should contain_group('nut') }
         it { should contain_package('nut-cgi') }
+        it { should contain_user('nut') }
       end
     end
   end

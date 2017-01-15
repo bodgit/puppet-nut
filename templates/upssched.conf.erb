@@ -1,0 +1,5 @@
+<% if @cmdscript -%>
+CMDSCRIPT "<%= @cmdscript %>"
+<% end -%>
+PIPEFN <%= @state_dir %>/upssched/upssched.pipe
+LOCKFN <%= @state_dir %>/upssched/upssched.lock

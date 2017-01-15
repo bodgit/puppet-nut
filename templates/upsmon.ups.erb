@@ -1,0 +1,4 @@
+MONITOR <%= @ups %> <%= @powervalue %> <%= @user %> <%= @password %> <%= @type %>
+<% if @certhost -%>
+CERTHOST "<%= %r{@([^:]+)}.match(@ups)[1] %>" "<%= @certhost[0] %>" "<%= @certhost[1] ? 1 : 0 %>" "<%= @certhost[2] ? 1 : 0 %>"
+<% end -%>

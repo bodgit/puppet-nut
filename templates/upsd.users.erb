@@ -1,12 +1,16 @@
-[<%= @name %>]
+[<%= @user %>]
 	password = <%= @password %>
 <% if @upsmon -%>
 	upsmon <%= @upsmon %>
 <% else -%>
-<%   @actions.each do |a| -%>
+<%   if @actions -%>
+<%     @actions.each do |a| -%>
 	actions = <%= a %>
+<%     end -%>
 <%   end -%>
-<%   @instcmds.each do |i| -%>
+<%   if @instcmds -%>
+<%     @instcmds.each do |i| -%>
 	instcmds = <%= i %>
+<%     end -%>
 <%   end -%>
 <% end -%>

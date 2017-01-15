@@ -1,3 +1,4 @@
 fixtures:
   symlinks:
     nut: "#{source_dir}"
+    test: "#{source_dir}/spec/fixtures/test"

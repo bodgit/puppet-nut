@@ -4,17 +4,17 @@ describe 'nut::client' do
 
   case fact('osfamily')
   when 'OpenBSD'
-    conf_dir = '/etc/nut'
-    group    = 'wheel'
-    mode     = 600
-    owner    = '_ups'
-    service  = 'upsmon'
+    conf_dir  = '/etc/nut'
+    group     = '_ups'
+    service   = 'upsmon'
+    state_dir = '/var/db/nut'
+    user      = '_ups'
   when 'RedHat'
-    conf_dir = '/etc/ups'
-    group    = 'nut'
-    mode     = 640
-    owner    = 'root'
-    service  = 'nut-monitor'
+    conf_dir  = '/etc/ups'
+    group     = 'nut'
+    service   = 'nut-monitor'
+    state_dir = '/var/run/nut'
+    user      = 'nut'
   end
 
   it 'should work with no errors' do
@@ -22,12 +22,19 @@ describe 'nut::client' do
     pp = <<-EOS
       Package {
         source => $::osfamily ? {
-          'OpenBSD' => "http://ftp.openbsd.org/pub/OpenBSD/${::operatingsystemrelease}/packages/${::architecture}/",
+          # $::architecture fact has gone missing on facter 3.x package currently installed
+          'OpenBSD' => "http://ftp.openbsd.org/pub/OpenBSD/${::operatingsystemrelease}/packages/amd64/",
           default   => undef,
         },
       }
 
       include ::nut
+
+      if $::osfamily == 'RedHat' {
+        include ::epel
+
+        Class['::epel'] -> Class['::nut']
+      }
 
       ::nut::ups { 'dummy':
         driver => 'dummy-ups',
@@ -48,11 +55,32 @@ describe 'nut::client' do
         upsmon   => 'master',
       }
 
-      include ::nut::client
+      class { '::nut::client':
+        use_upssched => true,
+      }
 
       ::nut::client::ups { 'dummy@localhost':
         user     => 'test',
         password => 'password',
+      }
+
+      ::nut::client::upssched { 'commbad':
+        notifytype => 'commbad',
+        ups        => '*',
+        command    => 'start-timer',
+        args       => [
+          'upsgone',
+          10,
+        ],
+      }
+
+      ::nut::client::upssched { 'commok':
+        notifytype => 'commok',
+        ups        => 'dummy@localhost',
+        command    => 'cancel-timer',
+        args       => [
+          'upsgone',
+        ],
       }
 
       Class['::nut'] ~> Class['::nut::client']
@@ -64,10 +92,28 @@ describe 'nut::client' do
 
   describe file("#{conf_dir}/upsmon.conf") do
     it { should be_file }
-    it { should be_mode mode }
-    it { should be_owned_by owner }
+    it { should be_mode 640 }
+    it { should be_owned_by 'root' }
     it { should be_grouped_into group }
     its(:content) { should match /^MONITOR dummy@localhost 1 test password master$/ }
+  end
+
+  describe file("#{conf_dir}/upssched.conf") do
+    it { should be_file }
+    it { should be_mode 640 }
+    it { should be_owned_by 'root' }
+    it { should be_grouped_into group }
+    its(:content) { should match /^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$/ }
+    its(:content) { should match /^LOCKFN #{state_dir}\/upssched\/upssched\.lock$/ }
+    its(:content) { should match /^AT COMMBAD \* START-TIMER upsgone 10$/ }
+    its(:content) { should match /^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$/ }
+  end
+
+  describe file("#{state_dir}/upssched") do
+    it { should be_directory }
+    it { should be_mode 750 }
+    it { should be_owned_by user }
+    it { should be_grouped_into group }
   end
 
   describe service(service) do
