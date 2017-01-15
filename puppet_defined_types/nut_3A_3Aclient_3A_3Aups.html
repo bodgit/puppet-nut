@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Defined Type: nut::client::ups
+  
+    &mdash; Documentation by YARD 0.9.7
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_defined_types::nut::client::ups";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_defined_type_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (n)</a> &raquo;
+    <span class='title'><span class='object_link'>Defined Types</span></span>
+     &raquo; 
+    <span class="title">nut::client::ups</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Defined Type: nut::client::ups</h1>
+<div class="box_info">
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/client/ups.pp
+    </dd>
+  </dl>
+</div>
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>Add a local or remote UPS to monitor.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Monitoring a local UPS</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::nut
+::nut::ups { &#39;sua1000i&#39;:
+  driver =&gt; &#39;usbhid-ups&#39;,
+  port   =&gt; &#39;auto&#39;,
+}
+::nut::user { &#39;test&#39;:
+  password =&gt; &#39;password&#39;,
+  upsmon   =&gt; &#39;master&#39;,
+}
+
+include ::nut::client
+::nut::client::ups { &#39;sua1000i@localhost&#39;:
+  user     =&gt; &#39;test&#39;,
+  password =&gt; &#39;password&#39;,
+  type     =&gt; &#39;master&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Monitoring a remote UPS</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::nut::client
+::nut::client::ups { &#39;sua1000i@remotehost&#39;:
+  user     =&gt; &#39;test&#39;,
+  password =&gt; &#39;password&#39;,
+  type     =&gt; &#39;slave&#39;,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Username to use to connect to <code>upsd</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>password</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Password to use to connect to <code>upsd</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certhost</span>
+      
+      
+        <span class='type'>(<tt>Optional[Tuple[String, Boolean, Boolean]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If using NSS and client certificate authentication specify a tuple of
+certificate name, whether to verify and whether to force TLS with the
+remote host.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>powervalue</span>
+      
+      
+        <span class='type'>(<tt>Integer[0]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>1</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How many power supplies does this UPS feed.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>type</span>
+      
+      
+        <span class='type'>(<tt>Enum['master', 'slave']</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$title</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Is the UPS being monitored attached to the local system or not.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ups</span>
+      
+      
+        <span class='type'>(<tt>Nut::Device</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$title</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The UPS to monitor.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="../puppet_classes/nut_3A_3Aclient.html" title="puppet_classes::nut::client (puppet_class)">::nut::client</a></span></li>
+    
+      <li><span class='object_link'><a href="nut_3A_3Aclient_3A_3Aupssched.html" title="puppet_defined_types::nut::client::upssched (puppet_defined_type)">::nut::client::upssched</a></span></li>
+    
+  </ul>
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/client/ups.pp', line 40</span>
+
+define nut::client::ups (
+  String                                    $user,
+  String                                    $password,
+  Optional[Tuple[String, Boolean, Boolean]] $certhost   = undef,
+  Integer[0]                                $powervalue = 1,
+  Enum[&#39;master&#39;, &#39;slave&#39;]                   $type       = $title ? {
+    /@localhost(:\d+)?$/ =&gt; &#39;master&#39;,
+    default              =&gt; &#39;slave&#39;,
+  },
+  Nut::Device                               $ups        = $title,
+) {
+
+  if ! defined(Class[&#39;::nut::client&#39;]) {
+    fail(&#39;You must include the nut::client base class before using any nut::client defined resources&#39;)
+  }
+
+  ::concat::fragment { &quot;nut upsmon ${ups}&quot;:
+    content =&gt; template(&quot;${module_name}/upsmon.ups.erb&quot;),
+    target  =&gt; &quot;${::nut::client::conf_dir}/upsmon.conf&quot;,
+  }
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+  Generated on Sun Jan 15 22:51:51 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.7 (ruby-2.2.5).
+</div>
+
+    </div>
+  </body>
+</html>

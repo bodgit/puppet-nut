@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: nut
+  
+    &mdash; Documentation by YARD 0.9.7
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::nut";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (n)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">nut</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: nut</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>::nut::params</dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>Installs Network UPS Tools (NUT).</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring the class</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::nut</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Listening on local subnet</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;::nut&#39;:
+  listen =&gt; [
+    {
+      &#39;address&#39; =&gt; $::ipaddress_eth0,
+    },
+    {
+      &#39;address&#39; =&gt; $::ipaddress6_eth0,
+    },
+  ],
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>certfile</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to OpenSSL TLS certificate and key.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certident</span>
+      
+      
+        <span class='type'>(<tt>Optional[Tuple[String, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Tuple of certificate name and NSS database password.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certpath</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to NSS certificate database.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certrequest</span>
+      
+      
+        <span class='type'>(<tt>Optional[Enum['no', 'request', 'require']]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Client certificate authentication options for NSS.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>conf_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::conf_dir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Top-level configuration directory, usually <code>/etc/nut</code> or
+<code>/etc/ups</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>driver_packages</span>
+      
+      
+        <span class='type'>(<tt>Hash[String, String]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::driver_packages</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of driver types to the package that provides it.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::group</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The unprivileged group used to drop root privileges.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>listen</span>
+      
+      
+        <span class='type'>(<tt>Optional[Array[Nut::Listen, 1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>An array of hashes of interface addresses to listen on, optionally with a
+port.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>maxage</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Timeout for UPS drivers.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>maxconn</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[1]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Maximum number of connections.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::server_package_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the package.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::server_service_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>statepath</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::state_dir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Top-level state directory, usually <code>/var/run/nut</code> or
+<code>/var/db/nut</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The unprivileged user used to drop root privileges.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aups.html" title="puppet_defined_types::nut::ups (puppet_defined_type)">::nut::ups</a></span></li>
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Auser.html" title="puppet_defined_types::nut::user (puppet_defined_type)">::nut::user</a></span></li>
+    
+  </ul>
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 38</span>
+
+class nut (
+  Optional[Stdlib::Absolutepath]             $certfile        = undef,
+  Optional[Tuple[String, String]]            $certident       = undef,
+  Optional[Stdlib::Absolutepath]             $certpath        = undef,
+  Optional[Enum[&#39;no&#39;, &#39;request&#39;, &#39;require&#39;]] $certrequest     = undef,
+  Stdlib::Absolutepath                       $conf_dir        = $::nut::params::conf_dir,
+  Hash[String, String]                       $driver_packages = $::nut::params::driver_packages,
+  String                                     $group           = $::nut::params::group,
+  Optional[Array[Nut::Listen, 1]]            $listen          = undef,
+  Optional[Integer[1]]                       $maxage          = undef,
+  Optional[Integer[1]]                       $maxconn         = undef,
+  String                                     $package_name    = $::nut::params::server_package_name,
+  String                                     $service_name    = $::nut::params::server_service_name,
+  Stdlib::Absolutepath                       $statepath       = $::nut::params::state_dir,
+  String                                     $user            = $::nut::params::user,
+) inherits ::nut::params {
+
+  contain ::nut::install
+  contain ::nut::config
+  contain ::nut::service
+
+  Class[&#39;::nut::install&#39;] -&gt; Class[&#39;::nut::config&#39;] ~&gt; Class[&#39;::nut::service&#39;]
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+  Generated on Sun Jan 15 22:51:51 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.7 (ruby-2.2.5).
+</div>
+
+    </div>
+  </body>
+</html>

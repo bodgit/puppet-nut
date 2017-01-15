@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  File: README
+  
+    &mdash; Documentation by YARD 0.9.7
+  
+</title>
+
+  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "";
+  relpath = '';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="_index.html">Index</a> &raquo; 
+    <span class="title">File: README</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><div id='filecontents'>
+<h1 id="label-nut">nut</h1>
+
+<p>Tested with Travis CI</p>
+
+<p><a href="https://travis-ci.org/bodgit/puppet-nut"><img
+src="https://travis-ci.org/bodgit/puppet-nut.svg?branch=master"></a> <a
+href="https://coveralls.io/github/bodgit/puppet-nut?branch=master"><img
+src="https://coveralls.io/repos/bodgit/puppet-nut/badge.svg?branch=master&service=github"></a>
+<a href="https://forge.puppetlabs.com/bodgit/nut"><img
+src="http://img.shields.io/puppetforge/v/bodgit/nut.svg"></a> <a
+href="https://gemnasium.com/bodgit/puppet-nut"><img
+src="https://gemnasium.com/bodgit/puppet-nut.svg"></a></p>
+
+<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<ol><li>
+<p><a href="#description">Description</a></p>
+</li><li>
+<p><a href="#setup">Setup - The basics of getting started with nut</a></p>
+<ul><li>
+<p><a href="#what-nut-affects">What nut affects</a></p>
+</li><li>
+<p><a href="#setup-requirements">Setup requirements</a></p>
+</li><li>
+<p><a href="#beginning-with-nut">Beginning with nut</a></p>
+</li></ul>
+</li><li>
+<p><a href="#usage">Usage - Configuration options and additional
+functionality</a></p>
+</li><li>
+<p><a href="#reference">Reference - An under-the-hood peek at what the module
+is doing and how</a></p>
+</li><li>
+<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+</li><li>
+<p><a href="#development">Development - Guide for contributing to the
+module</a></p>
+</li></ol>
+
+<h2 id="label-Description">Description</h2>
+
+<p>This module ensures that the Network UPS Tools (NUT) are installed and
+configured.</p>
+
+<p>RHEL/CentOS and OpenBSD are supported using Puppet 4.4.0 or later.</p>
+
+<h2 id="label-Setup">Setup</h2>
+
+<h3 id="label-What+nut+affects">What nut affects</h3>
+
+<p>This module will potentially configure your host to respond to power
+failures.</p>
+
+<h3 id="label-Setup+Requirements">Setup Requirements</h3>
+
+<p>On RHEL/CentOS platforms you will need to have access to the EPEL
+repository by using <a
+href="https://forge.puppet.com/stahnma/epel">stahnma/epel</a> or by other
+means.</p>
+
+<h3 id="label-Beginning+with+nut">Beginning with nut</h3>
+
+<p>In the very simplest case, you can just include the following:</p>
+
+<pre class="code ruby"><code class="ruby">include ::nut</code></pre>
+
+<h2 id="label-Usage">Usage</h2>
+
+<p>The above example is not terribly useful as it does not include a UPS
+device, nor has a client configured which allows the safe shutting down of
+the host in the event of a power failure, so it should be extended to
+something like the following:</p>
+
+<pre class="code ruby"><code class="ruby">include ::nut
+::nut::ups { &#39;sua1000i&#39;:
+  driver =&gt; &#39;usbhid-ups&#39;,
+  port   =&gt; &#39;auto&#39;,
+}
+::nut::user { &#39;local&#39;:
+  password =&gt; &#39;password&#39;,
+  upsmon   =&gt; &#39;master&#39;,
+}
+
+include ::nut::client
+::nut::client::ups { &#39;sua1000i@localhost&#39;:
+  user     =&gt; &#39;local&#39;,
+  password =&gt; &#39;password&#39;,
+}</code></pre>
+
+<h2 id="label-Reference">Reference</h2>
+
+<p>The reference documentation is generated with <a
+href="https://github.com/puppetlabs/puppet-strings">puppet-strings</a> and
+the latest version of the documentation is hosted at <a
+href="https://bodgit.github.io/puppet-nut/">bodgit.github.io/puppet-nut/</a>.</p>
+
+<h2 id="label-Limitations">Limitations</h2>
+
+<p>This module has been built on and tested against Puppet 4.4.0 and higher.</p>
+
+<p>The module has been tested on:</p>
+<ul><li>
+<p>RedHat Enterprise Linux 7</p>
+</li><li>
+<p>OpenBSD 6.0</p>
+</li></ul>
+
+<h2 id="label-Development">Development</h2>
+
+<p>The module has both <a href="http://rspec-puppet.com">rspec-puppet</a> and
+<a href="https://github.com/puppetlabs/beaker-rspec">beaker-rspec</a>
+tests. Run them with:</p>
+
+<pre class="code ruby"><code class="ruby">$ bundle exec rake test
+$ PUPPET_INSTALL_TYPE=agent PUPPET_INSTALL_VERSION=x.y.z bundle exec rake beaker:&lt;nodeset&gt;</code></pre>
+
+<p>Please log issues or pull requests at <a
+href="https://github.com/bodgit/puppet-nut">github</a>.</p>
+</div></div>
+
+      <div id="footer">
+  Generated on Sun Jan 15 22:51:50 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.7 (ruby-2.2.5).
+</div>
+
+    </div>
+  </body>
+</html>

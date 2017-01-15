@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: nut::client
+  
+    &mdash; Documentation by YARD 0.9.7
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::nut::client";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (n)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">nut::client</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: nut::client</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>::nut::params</dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/client.pp
+    </dd>
+  </dl>
+</div>
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>Installs the Network UPS Tools (NUT) client.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Declaring the class</p>
+</div></p>
+      
+      <pre class="example code"><code>include ::nut::client</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Using <code>upssched</code> for notifications</p>
+</div></p>
+      
+      <pre class="example code"><code>class { &#39;::nut::client&#39;:
+  use_upssched =&gt; true,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>certident</span>
+      
+      
+        <span class='type'>(<tt>Optional[Tuple[String, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Tuple of certificate name and NSS database password.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certpath</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to NSS certificate database.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>certverify</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Verify any TLS connections.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>cmdscript</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The script invoked by <code>upssched</code> when a timer expires.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>conf_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::conf_dir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Top-level configuration directory, usually <code>/etc/nut</code> or
+<code>/etc/ups</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>deadtime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How long a UPS can go without reporting anything before being declared
+dead.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>finaldelay</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How long to wait after warning users before shutting the host down.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>forcessl</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Always use TLS connections.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>group</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::group</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The unprivileged group used to drop root privileges.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>hostsync</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Wait this long for slave hosts to disconnect in a shutdown situation.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>minsupplies</span>
+      
+      
+        <span class='type'>(<tt>Integer[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>1</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The number of power supplies receiving power for the host to remain powered
+on.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>nocommwarntime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How oftern to warn when no configured UPS is reachable.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>notifycmd</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$use_upssched</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The command to invoke for UPS events.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>notifyflag</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash[Nut::Event, Tuple[Boolean, 3, 3]]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of UPS event to tuple of three booleans representing using Syslog,
+<code>wall(1)</code> and <code>$notifycmd</code> for notifications.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>notifymsg</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash[Nut::Event, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Hash of UPS event to string for overriding the message for that event.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>package_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_package_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the package.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pollfreq</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How often to poll a UPS.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>pollfreqalert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How often to poll a UPS running on battery.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>rbwarntime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How often to warn a UPS needs a replacement battery.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_service_name</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The name of the service.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>shutdowncmd</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::shutdown_command</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The command used to power the host off.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>state_dir</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::state_dir</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Top-level state directory, usually <code>/var/run/nut</code> or
+<code>/var/db/nut</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>use_upssched</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to use <code>upssched</code> for notifications or not.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>user</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::user</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>The unprivileged user used to drop root privileges.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><span class='object_link'><a href="nut.html" title="puppet_classes::nut (puppet_class)">::nut</a></span></li>
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aups.html" title="puppet_defined_types::nut::client::ups (puppet_defined_type)">::nut::client::ups</a></span></li>
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aupssched.html" title="puppet_defined_types::nut::client::upssched (puppet_defined_type)">::nut::client::upssched</a></span></li>
+    
+  </ul>
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/client.pp', line 47</span>
+
+class nut::client (
+  Optional[Tuple[String, String]]                  $certident      = undef,
+  Optional[Stdlib::Absolutepath]                   $certpath       = undef,
+  Optional[Boolean]                                $certverify     = undef,
+  Optional[Stdlib::Absolutepath]                   $cmdscript      = undef,
+  Stdlib::Absolutepath                             $conf_dir       = $::nut::params::conf_dir,
+  Optional[Integer[0]]                             $deadtime       = undef,
+  Optional[Integer[0]]                             $finaldelay     = undef,
+  Optional[Boolean]                                $forcessl       = undef,
+  String                                           $group          = $::nut::params::group,
+  Optional[Integer[0]]                             $hostsync       = undef,
+  Integer[1]                                       $minsupplies    = 1,
+  Optional[Integer[0]]                             $nocommwarntime = undef,
+  Boolean                                          $use_upssched   = false,
+  Optional[Stdlib::Absolutepath]                   $notifycmd      = $use_upssched ? {
+    true    =&gt; $::nut::params::upssched, # lint:ignore:parameter_order
+    default =&gt; undef,
+  },
+  Optional[Hash[Nut::Event, Tuple[Boolean, 3, 3]]] $notifyflag     = undef,
+  Optional[Hash[Nut::Event, String]]               $notifymsg      = undef,
+  String                                           $package_name   = $::nut::params::client_package_name,
+  Optional[Integer[0]]                             $pollfreq       = undef,
+  Optional[Integer[0]]                             $pollfreqalert  = undef,
+  Optional[Integer[0]]                             $rbwarntime     = undef,
+  String                                           $service_name   = $::nut::params::client_service_name,
+  String                                           $shutdowncmd    = $::nut::params::shutdown_command,
+  Stdlib::Absolutepath                             $state_dir      = $::nut::params::state_dir,
+  String                                           $user           = $::nut::params::user,
+) inherits ::nut::params {
+
+  contain ::nut::client::install
+  contain ::nut::client::config
+  contain ::nut::client::service
+
+  Class[&#39;::nut::client::install&#39;] -&gt; Class[&#39;::nut::client::config&#39;]
+    ~&gt; Class[&#39;::nut::client::service&#39;]
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+  Generated on Sun Jan 15 22:51:51 2017 by
+  <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.7 (ruby-2.2.5).
+</div>
+
+    </div>
+  </body>
+</html>
