@@ -101,7 +101,8 @@ module</a></p>
 <p>This module ensures that the Network UPS Tools (NUT) are installed and
 configured.</p>
 
-<p>RHEL/CentOS and OpenBSD are supported using Puppet 4.4.0 or later.</p>
+<p>RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 4.4.0 or
+later.</p>
 
 <h2 id="label-Setup">Setup</h2>
 
@@ -125,10 +126,8 @@ means.</p>
 
 <h2 id="label-Usage">Usage</h2>
 
-<p>The above example is not terribly useful as it does not include a UPS
-device, nor has a client configured which allows the safe shutting down of
-the host in the event of a power failure, so it should be extended to
-something like the following:</p>
+<p>The above example is not terribly useful as it does not include any UPS
+devices, so it should be extended to something like the following:</p>
 
 <pre class="code ruby"><code class="ruby">include ::nut
 ::nut::ups { &#39;sua1000i&#39;:
@@ -139,10 +138,22 @@ something like the following:</p>
   password =&gt; &#39;password&#39;,
   upsmon   =&gt; &#39;master&#39;,
 }
-
-include ::nut::client
+::nut::user { &#39;remote&#39;:
+  password =&gt; &#39;password&#39;,
+  upsmon   =&gt; &#39;slave&#39;,
+}
 ::nut::client::ups { &#39;sua1000i@localhost&#39;:
   user     =&gt; &#39;local&#39;,
+  password =&gt; &#39;password&#39;,
+}</code></pre>
+
+<p>If the host does not have any UPS device directly attached, but is powered
+by one which is controlled by another host such as the one above, use the
+following:</p>
+
+<pre class="code ruby"><code class="ruby">include ::nut:client
+::nut::client::ups { &#39;sua1000i@remotehost&#39;:
+  user     =&gt; &#39;remote&#39;,
   password =&gt; &#39;password&#39;,
 }</code></pre>
 
@@ -159,7 +170,11 @@ href="https://bodgit.github.io/puppet-nut/">bodgit.github.io/puppet-nut/</a>.</p
 
 <p>The module has been tested on:</p>
 <ul><li>
-<p>RedHat Enterprise Linux 7</p>
+<p>RedHat Enterprise Linux 6/7</p>
+</li><li>
+<p>Ubuntu 16.04</p>
+</li><li>
+<p>Debian 8</p>
 </li><li>
 <p>OpenBSD 6.0</p>
 </li></ul>
@@ -178,7 +193,7 @@ href="https://github.com/bodgit/puppet-nut">github</a>.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Sun Jan 15 22:51:50 2017 by
+  Generated on Thu Jan 19 21:19:45 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.2.5).
 </div>

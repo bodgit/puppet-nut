@@ -95,8 +95,6 @@
   password =&gt; &#39;password&#39;,
   upsmon   =&gt; &#39;master&#39;,
 }
-
-include ::nut::client
 ::nut::client::ups { &#39;sua1000i@localhost&#39;:
   user     =&gt; &#39;test&#39;,
   password =&gt; &#39;password&#39;,
@@ -244,6 +242,8 @@ remote host.</p>
         <pre class="lines">
 
 
+38
+39
 40
 41
 42
@@ -262,12 +262,10 @@ remote host.</p>
 55
 56
 57
-58
-59
-60</pre>
+58</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/client/ups.pp', line 40</span>
+        <pre class="code"><span class="info file"># File 'manifests/client/ups.pp', line 38</span>
 
 define nut::client::ups (
   String                                    $user,
@@ -281,13 +279,13 @@ define nut::client::ups (
   Nut::Device                               $ups        = $title,
 ) {
 
-  if ! defined(Class[&#39;::nut::client&#39;]) {
-    fail(&#39;You must include the nut::client base class before using any nut::client defined resources&#39;)
+  if ! defined(Class[&#39;::nut::common&#39;]) {
+    fail(&#39;You must include the nut::common base class before using any nut::client defined resources&#39;)
   }
 
   ::concat::fragment { &quot;nut upsmon ${ups}&quot;:
     content =&gt; template(&quot;${module_name}/upsmon.ups.erb&quot;),
-    target  =&gt; &quot;${::nut::client::conf_dir}/upsmon.conf&quot;,
+    target  =&gt; &quot;${::nut::common::conf_dir}/upsmon.conf&quot;,
   }
 }</pre>
       </td>
@@ -297,7 +295,7 @@ define nut::client::ups (
 </div>
 
       <div id="footer">
-  Generated on Sun Jan 15 22:51:51 2017 by
+  Generated on Thu Jan 19 21:19:46 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.2.5).
 </div>

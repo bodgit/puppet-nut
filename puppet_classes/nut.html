@@ -189,6 +189,304 @@
   
     <li>
       
+        <span class='name'>client_certident</span>
+      
+      
+        <span class='type'>(<tt>Optional[Tuple[String, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_certpath</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_certverify</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_cmdscript</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_deadtime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_finaldelay</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_forcessl</span>
+      
+      
+        <span class='type'>(<tt>Optional[Boolean]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_hostsync</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_manage_package</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_manage_package</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the client is installed with the same package then set this to
+<code>false</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_manage_service</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_manage_service</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>If the client is started as part of the same service as the server then set
+this to <code>false</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_minsupplies</span>
+      
+      
+        <span class='type'>(<tt>Integer[1]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>1</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_nocommwarntime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_use_upssched</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_notifycmd</span>
+      
+      
+        <span class='type'>(<tt>Optional[Stdlib::Absolutepath]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$client_use_upssched</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_notifyflag</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash[Nut::Event, Tuple[Boolean, 3, 3]]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_notifymsg</span>
+      
+      
+        <span class='type'>(<tt>Optional[Hash[Nut::Event, String]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_package_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_package_name</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_pollfreq</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_pollfreqalert</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_rbwarntime</span>
+      
+      
+        <span class='type'>(<tt>Optional[Integer[0]]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>undef</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_service_name</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::client_service_name</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>client_shutdowncmd</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::nut::params::shutdown_command</tt>)</em>
+      
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>conf_dir</span>
       
       
@@ -376,9 +674,15 @@ port.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
+      <li><span class='object_link'><a href="nut_3A_3Aclient.html" title="puppet_classes::nut::client (puppet_class)">::nut::client</a></span></li>
+    
       <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aups.html" title="puppet_defined_types::nut::ups (puppet_defined_type)">::nut::ups</a></span></li>
     
       <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Auser.html" title="puppet_defined_types::nut::user (puppet_defined_type)">::nut::user</a></span></li>
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aups.html" title="puppet_defined_types::nut::client::ups (puppet_defined_type)">::nut::client::ups</a></span></li>
+    
+      <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aupssched.html" title="puppet_defined_types::nut::client::upssched (puppet_defined_type)">::nut::client::upssched</a></span></li>
     
   </ul>
 
@@ -389,55 +693,183 @@ port.</p>
         <pre class="lines">
 
 
-38
-39
-40
-41
-42
-43
-44
-45
-46
-47
-48
-49
-50
-51
-52
-53
-54
-55
-56
-57
-58
-59
-60</pre>
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 38</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 65</span>
 
 class nut (
-  Optional[Stdlib::Absolutepath]             $certfile        = undef,
-  Optional[Tuple[String, String]]            $certident       = undef,
-  Optional[Stdlib::Absolutepath]             $certpath        = undef,
-  Optional[Enum[&#39;no&#39;, &#39;request&#39;, &#39;require&#39;]] $certrequest     = undef,
-  Stdlib::Absolutepath                       $conf_dir        = $::nut::params::conf_dir,
-  Hash[String, String]                       $driver_packages = $::nut::params::driver_packages,
-  String                                     $group           = $::nut::params::group,
-  Optional[Array[Nut::Listen, 1]]            $listen          = undef,
-  Optional[Integer[1]]                       $maxage          = undef,
-  Optional[Integer[1]]                       $maxconn         = undef,
-  String                                     $package_name    = $::nut::params::server_package_name,
-  String                                     $service_name    = $::nut::params::server_service_name,
-  Stdlib::Absolutepath                       $statepath       = $::nut::params::state_dir,
-  String                                     $user            = $::nut::params::user,
+  Optional[Stdlib::Absolutepath]                   $certfile              = undef,
+  Optional[Tuple[String, String]]                  $certident             = undef,
+  Optional[Stdlib::Absolutepath]                   $certpath              = undef,
+  Optional[Enum[&#39;no&#39;, &#39;request&#39;, &#39;require&#39;]]       $certrequest           = undef,
+  Optional[Tuple[String, String]]                  $client_certident      = undef,
+  Optional[Stdlib::Absolutepath]                   $client_certpath       = undef,
+  Optional[Boolean]                                $client_certverify     = undef,
+  Optional[Stdlib::Absolutepath]                   $client_cmdscript      = undef,
+  Optional[Integer[0]]                             $client_deadtime       = undef,
+  Optional[Integer[0]]                             $client_finaldelay     = undef,
+  Optional[Boolean]                                $client_forcessl       = undef,
+  Optional[Integer[0]]                             $client_hostsync       = undef,
+  Boolean                                          $client_manage_package = $::nut::params::client_manage_package,
+  Boolean                                          $client_manage_service = $::nut::params::client_manage_service,
+  Integer[1]                                       $client_minsupplies    = 1,
+  Optional[Integer[0]]                             $client_nocommwarntime = undef,
+  Boolean                                          $client_use_upssched   = false,
+  Optional[Stdlib::Absolutepath]                   $client_notifycmd      = $client_use_upssched ? {
+    true    =&gt; $::nut::params::upssched, # lint:ignore:parameter_order
+    default =&gt; undef,
+  },
+  Optional[Hash[Nut::Event, Tuple[Boolean, 3, 3]]] $client_notifyflag     = undef,
+  Optional[Hash[Nut::Event, String]]               $client_notifymsg      = undef,
+  String                                           $client_package_name   = $::nut::params::client_package_name,
+  Optional[Integer[0]]                             $client_pollfreq       = undef,
+  Optional[Integer[0]]                             $client_pollfreqalert  = undef,
+  Optional[Integer[0]]                             $client_rbwarntime     = undef,
+  String                                           $client_service_name   = $::nut::params::client_service_name,
+  String                                           $client_shutdowncmd    = $::nut::params::shutdown_command,
+  Stdlib::Absolutepath                             $conf_dir              = $::nut::params::conf_dir,
+  Hash[String, String]                             $driver_packages       = $::nut::params::driver_packages,
+  String                                           $group                 = $::nut::params::group,
+  Optional[Array[Nut::Listen, 1]]                  $listen                = undef,
+  Optional[Integer[1]]                             $maxage                = undef,
+  Optional[Integer[1]]                             $maxconn               = undef,
+  String                                           $package_name          = $::nut::params::server_package_name,
+  String                                           $service_name          = $::nut::params::server_service_name,
+  Stdlib::Absolutepath                             $statepath             = $::nut::params::state_dir,
+  String                                           $user                  = $::nut::params::user,
 ) inherits ::nut::params {
 
   contain ::nut::install
   contain ::nut::config
   contain ::nut::service
 
+  class { &#39;::nut::common&#39;:
+    certident      =&gt; $client_certident,
+    certpath       =&gt; $client_certpath,
+    certverify     =&gt; $client_certverify,
+    cmdscript      =&gt; $client_cmdscript,
+    conf_dir       =&gt; $conf_dir,
+    deadtime       =&gt; $client_deadtime,
+    finaldelay     =&gt; $client_finaldelay,
+    forcessl       =&gt; $client_forcessl,
+    group          =&gt; $group,
+    hostsync       =&gt; $client_hostsync,
+    manage_package =&gt; $client_manage_package,
+    manage_service =&gt; $client_manage_service,
+    minsupplies    =&gt; $client_minsupplies,
+    nocommwarntime =&gt; $client_nocommwarntime,
+    notifycmd      =&gt; $client_notifycmd,
+    notifyflag     =&gt; $client_notifyflag,
+    notifymsg      =&gt; $client_notifymsg,
+    package_name   =&gt; $client_package_name,
+    pollfreq       =&gt; $client_pollfreq,
+    pollfreqalert  =&gt; $client_pollfreqalert,
+    rbwarntime     =&gt; $client_rbwarntime,
+    service_name   =&gt; $client_service_name,
+    shutdowncmd    =&gt; $client_shutdowncmd,
+    state_dir      =&gt; $statepath,
+    use_upssched   =&gt; $client_use_upssched,
+    user           =&gt; $user,
+  }
+
   Class[&#39;::nut::install&#39;] -&gt; Class[&#39;::nut::config&#39;] ~&gt; Class[&#39;::nut::service&#39;]
+
+  if $client_manage_service {
+    # If the client manages its own service then the client should depend on
+    # the server being up
+    Class[&#39;::nut::service&#39;] -&gt; Class[&#39;::nut::common&#39;]
+  } else {
+    # If the server service starts everything up then we need to have the
+    # client configured before the service starts
+    Class[&#39;::nut::config&#39;] -&gt; Class[&#39;::nut::common&#39;] ~&gt; Class[&#39;::nut::service&#39;]
+  }
 }</pre>
       </td>
     </tr>
@@ -446,7 +878,7 @@ class nut (
 </div>
 
       <div id="footer">
-  Generated on Sun Jan 15 22:51:51 2017 by
+  Generated on Thu Jan 19 21:19:45 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.2.5).
 </div>

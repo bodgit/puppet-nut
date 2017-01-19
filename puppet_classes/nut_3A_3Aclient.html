@@ -551,8 +551,6 @@ on.</p>
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
-      <li><span class='object_link'><a href="nut.html" title="puppet_classes::nut (puppet_class)">::nut</a></span></li>
-    
       <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aups.html" title="puppet_defined_types::nut::client::ups (puppet_defined_type)">::nut::client::ups</a></span></li>
     
       <li><span class='object_link'><a href="../puppet_defined_types/nut_3A_3Aclient_3A_3Aupssched.html" title="puppet_defined_types::nut::client::upssched (puppet_defined_type)">::nut::client::upssched</a></span></li>
@@ -566,6 +564,7 @@ on.</p>
         <pre class="lines">
 
 
+46
 47
 48
 49
@@ -602,10 +601,33 @@ on.</p>
 80
 81
 82
-83</pre>
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/client.pp', line 47</span>
+        <pre class="code"><span class="info file"># File 'manifests/client.pp', line 46</span>
 
 class nut::client (
   Optional[Tuple[String, String]]                  $certident      = undef,
@@ -637,12 +659,36 @@ class nut::client (
   String                                           $user           = $::nut::params::user,
 ) inherits ::nut::params {
 
-  contain ::nut::client::install
   contain ::nut::client::config
-  contain ::nut::client::service
 
-  Class[&#39;::nut::client::install&#39;] -&gt; Class[&#39;::nut::client::config&#39;]
-    ~&gt; Class[&#39;::nut::client::service&#39;]
+  class { &#39;::nut::common&#39;:
+    certident      =&gt; $certident,
+    certpath       =&gt; $certpath,
+    certverify     =&gt; $certverify,
+    cmdscript      =&gt; $cmdscript,
+    conf_dir       =&gt; $conf_dir,
+    deadtime       =&gt; $deadtime,
+    finaldelay     =&gt; $finaldelay,
+    forcessl       =&gt; $forcessl,
+    group          =&gt; $group,
+    hostsync       =&gt; $hostsync,
+    minsupplies    =&gt; $minsupplies,
+    nocommwarntime =&gt; $nocommwarntime,
+    notifycmd      =&gt; $notifycmd,
+    notifyflag     =&gt; $notifyflag,
+    notifymsg      =&gt; $notifymsg,
+    package_name   =&gt; $package_name,
+    pollfreq       =&gt; $pollfreq,
+    pollfreqalert  =&gt; $pollfreqalert,
+    rbwarntime     =&gt; $rbwarntime,
+    service_name   =&gt; $service_name,
+    shutdowncmd    =&gt; $shutdowncmd,
+    state_dir      =&gt; $state_dir,
+    use_upssched   =&gt; $use_upssched,
+    user           =&gt; $user,
+  }
+
+  Class[&#39;::nut::client::config&#39;] ~&gt; Class[&#39;::nut::common::service&#39;]
 }</pre>
       </td>
     </tr>
@@ -651,7 +697,7 @@ class nut::client (
 </div>
 
       <div id="footer">
-  Generated on Sun Jan 15 22:51:51 2017 by
+  Generated on Thu Jan 19 21:19:45 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.2.5).
 </div>

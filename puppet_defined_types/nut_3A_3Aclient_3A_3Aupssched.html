@@ -215,14 +215,14 @@ define nut::client::upssched (
   Variant[Nut::Device, Enum[&#39;*&#39;]]                $ups,
 ) {
 
-  if ! defined(Class[&#39;::nut::client&#39;]) {
-    fail(&#39;You must include the nut::client base class before using any nut::client defined resources&#39;)
+  if ! defined(Class[&#39;::nut::common&#39;]) {
+    fail(&#39;You must include the nut::common base class before using any nut::client defined resources&#39;)
   }
 
   if $::nut::client::use_upssched {
     ::concat::fragment { &quot;nut upssched ${title}&quot;:
       content =&gt; template(&quot;${module_name}/upssched.at.erb&quot;),
-      target  =&gt; &quot;${::nut::client::conf_dir}/upssched.conf&quot;,
+      target  =&gt; &quot;${::nut::common::conf_dir}/upssched.conf&quot;,
     }
   }
 }</pre>
@@ -233,7 +233,7 @@ define nut::client::upssched (
 </div>
 
       <div id="footer">
-  Generated on Sun Jan 15 22:51:51 2017 by
+  Generated on Thu Jan 19 21:19:46 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.7 (ruby-2.2.5).
 </div>
