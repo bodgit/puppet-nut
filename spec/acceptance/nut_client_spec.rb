@@ -23,9 +23,19 @@ describe 'nut::client' do
   when 'Debian'
     conf_dir  = '/etc/nut'
     group     = 'nut'
-    service   = 'nut-client'
     state_dir = '/var/run/nut'
     user      = 'nut'
+    case fact('operatingsystem')
+    when 'Ubuntu'
+      service = 'nut-client'
+    else
+      case fact('operatingsystemmajrelease')
+      when '7'
+        service = 'nut-client'
+      else
+        service = 'nut-monitor'
+      end
+    end
   end
 
   it 'should work with no errors' do

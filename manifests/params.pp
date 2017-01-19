@@ -83,7 +83,6 @@ class nut::params {
       $client_manage_package = true
       $client_manage_service = true
       $client_package_name   = 'nut-client'
-      $client_service_name   = 'nut-client'
       $conf_dir              = '/etc/nut'
       $driver_packages       = {
         'snmp-ups'    => 'nut-snmp',
@@ -98,6 +97,22 @@ class nut::params {
       $state_dir             = '/var/run/nut'
       $upssched              = '/sbin/upssched'
       $user                  = 'nut'
+
+      case $::operatingsystem {
+        'Ubuntu': {
+          $client_service_name = 'nut-client'
+        }
+        default: {
+          case $::operatingsystemmajrelease {
+            '7': {
+              $client_service_name = 'nut-client'
+            }
+            default: {
+              $client_service_name = 'nut-monitor'
+            }
+          }
+        }
+      }
     }
     default: {
       fail("The ${module_name} module is not supported on ${::osfamily} based system.")

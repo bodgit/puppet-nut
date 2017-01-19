@@ -151,8 +151,18 @@ describe 'nut::client' do
         it { should contain_file('/var/run/nut/upssched') }
         it { should contain_group('nut') }
         it { should contain_package('nut-client') }
-        it { should contain_service('nut-client') }
         it { should contain_user('nut') }
+        case facts[:operatingsystem]
+        when 'Ubuntu'
+          it { should contain_service('nut-client') }
+        else
+          case facts[:operatingsystemmajrelease]
+          when '7'
+            it { should contain_service('nut-client') }
+          else
+            it { should contain_service('nut-monitor') }
+          end
+        end
       end
     end
   end

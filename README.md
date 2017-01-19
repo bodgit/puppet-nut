@@ -24,7 +24,8 @@ Tested with Travis CI
 This module ensures that the Network UPS Tools (NUT) are installed and
 configured.
 
-RHEL/CentOS, Ubuntu and OpenBSD are supported using Puppet 4.4.0 or later.
+RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 4.4.0 or
+later.
 
 ## Setup
 
@@ -96,7 +97,8 @@ This module has been built on and tested against Puppet 4.4.0 and higher.
 The module has been tested on:
 
 * RedHat Enterprise Linux 6/7
-* Ubuntu 16.04
+* Ubuntu 14.04/16.04
+* Debian 7/8
 * OpenBSD 6.0
 
 ## Development
