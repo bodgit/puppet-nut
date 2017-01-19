@@ -12,6 +12,17 @@ describe 'nut' do
   when 'RedHat'
     conf_dir  = '/etc/ups'
     group     = 'nut'
+    state_dir = '/var/run/nut'
+    user      = 'nut'
+    case fact('operatingsystemmajrelease')
+    when '6'
+      service = 'ups'
+    else
+      service = 'nut-server'
+    end
+  when 'Debian'
+    conf_dir  = '/etc/nut'
+    group     = 'nut'
     service   = 'nut-server'
     state_dir = '/var/run/nut'
     user      = 'nut'
@@ -53,6 +64,11 @@ describe 'nut' do
       ::nut::user { 'test':
         password => 'password',
         upsmon   => 'master',
+      }
+
+      ::nut::client::ups { 'dummy@localhost':
+        user     => 'test',
+        password => 'password',
       }
     EOS
 

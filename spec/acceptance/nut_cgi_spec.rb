@@ -6,13 +6,24 @@ describe 'nut::cgi' do
   when 'OpenBSD'
     conf_dir     = '/etc/nut'
     cgi_conf_dir = '/var/www/conf/nut'
+    cgi_dir      = '/var/www/cgi-bin'
+    docroot      = '/var/www/html'
     group        = 'wheel'
     url          = 'http://localhost/cgi-bin/nut/upsstats.cgi?host=dummy@localhost&treemode'
   when 'RedHat'
     conf_dir     = '/etc/ups'
     cgi_conf_dir = conf_dir
+    cgi_dir      = '/var/www/nut-cgi-bin'
+    docroot      = '/var/www/html'
     group        = 'root'
     url          = 'http://localhost/cgi-bin/upsstats.cgi?host=dummy@localhost&treemode'
+  when 'Debian'
+    conf_dir     = '/etc/nut'
+    cgi_conf_dir = conf_dir
+    cgi_dir      = '/usr/lib/cgi-bin'
+    docroot      = '/usr/share/nut/www'
+    group        = 'root'
+    url          = 'http://localhost/cgi-bin/nut/upsstats.cgi?host=dummy@localhost&treemode'
   end
 
   it 'should work with no errors' do
@@ -28,11 +39,16 @@ describe 'nut::cgi' do
 
       include ::nut
 
-      if $::osfamily == 'RedHat' {
-        include ::apache
-        include ::epel
+      case $::osfamily {
+        'RedHat': {
+          include ::apache
+          include ::epel
 
-        Class['::epel'] -> Class['::nut']
+          Class['::epel'] -> Class['::nut']
+        }
+        'Debian': {
+          include ::apache
+        }
       }
 
       ::nut::ups { 'dummy':
@@ -54,14 +70,19 @@ describe 'nut::cgi' do
         upsmon   => 'master',
       }
 
+      ::nut::client::ups { 'dummy@localhost':
+        user     => 'test',
+        password => 'password',
+      }
+
       class { '::nut::cgi':
         apache_resources => {
           '::apache::vhost' => {
             'nut' => {
               'servername'  => 'localhost',
               'port'        => 80,
-              'docroot'     => '/var/www/html',
-              'scriptalias' => '/var/www/nut-cgi-bin',
+              'docroot'     => '#{docroot}',
+              'scriptalias' => '#{cgi_dir}',
             },
           },
         },

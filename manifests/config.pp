@@ -27,30 +27,30 @@ class nut::config {
     }
   }
 
-  ensure_resource('group', $group, {
+  group { $group:
     ensure => present,
     system => true,
-  })
+  }
 
-  ensure_resource('user', $user, {
+  user { $user:
     ensure => present,
     gid    => $group,
     system => true,
-  })
+  }
 
-  ensure_resource('file', $conf_dir, {
+  file { $conf_dir:
     ensure => directory,
     owner  => 0,
     group  => 0,
     mode   => '0644',
-  })
+  }
 
-  ensure_resource('file', $statepath, {
+  file { $statepath:
     ensure => directory,
     owner  => $user,
     group  => $group,
     mode   => '0640',
-  })
+  }
 
   ::concat { "${conf_dir}/ups.conf":
     owner => 0,
@@ -72,5 +72,44 @@ class nut::config {
     group   => $group,
     mode    => '0640',
     content => template("${module_name}/upsd.conf.erb"),
+  }
+
+  case $::osfamily {
+    'RedHat': {
+      case $::operatingsystemmajrelease {
+        '6': {
+          $server = true
+
+          file { '/etc/sysconfig/ups':
+            ensure  => file,
+            owner   => 0,
+            group   => 0,
+            mode    => '0644',
+            content => template("${module_name}/sysconfig.erb"),
+          }
+        }
+        default: {
+          # noop
+        }
+      }
+    }
+    'Debian': {
+      $content = @(EOS/L)
+        # !!! Managed by Puppet !!!
+
+        MODE=netserver
+        | EOS
+
+      file { "${conf_dir}/nut.conf":
+        ensure  => file,
+        owner   => 0,
+        group   => $group,
+        mode    => '0640',
+        content => $content,
+      }
+    }
+    default: {
+      # noop
+    }
   }
 }

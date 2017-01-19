@@ -48,6 +48,8 @@ describe 'nut::ups' do
         case facts[:osfamily]
         when 'OpenBSD'
           it { should contain_package('nut-snmp') }
+        when 'Debian'
+          it { should contain_package('nut-snmp') }
         end
       end
     end

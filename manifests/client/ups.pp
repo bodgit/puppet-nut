@@ -10,8 +10,6 @@
 #     password => 'password',
 #     upsmon   => 'master',
 #   }
-#
-#   include ::nut::client
 #   ::nut::client::ups { 'sua1000i@localhost':
 #     user     => 'test',
 #     password => 'password',
@@ -49,12 +47,12 @@ define nut::client::ups (
   Nut::Device                               $ups        = $title,
 ) {
 
-  if ! defined(Class['::nut::client']) {
-    fail('You must include the nut::client base class before using any nut::client defined resources')
+  if ! defined(Class['::nut::common']) {
+    fail('You must include the nut::common base class before using any nut::client defined resources')
   }
 
   ::concat::fragment { "nut upsmon ${ups}":
     content => template("${module_name}/upsmon.ups.erb"),
-    target  => "${::nut::client::conf_dir}/upsmon.conf",
+    target  => "${::nut::common::conf_dir}/upsmon.conf",
   }
 }

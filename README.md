@@ -24,7 +24,7 @@ Tested with Travis CI
 This module ensures that the Network UPS Tools (NUT) are installed and
 configured.
 
-RHEL/CentOS and OpenBSD are supported using Puppet 4.4.0 or later.
+RHEL/CentOS, Ubuntu and OpenBSD are supported using Puppet 4.4.0 or later.
 
 ## Setup
 
@@ -47,10 +47,8 @@ include ::nut
 
 ## Usage
 
-The above example is not terribly useful as it does not include a UPS device,
-nor has a client configured which allows the safe shutting down of the host in
-the event of a power failure, so it should be extended to something like the
-following:
+The above example is not terribly useful as it does not include any UPS
+devices, so it should be extended to something like the following:
 
 ```puppet
 include ::nut
@@ -62,10 +60,24 @@ include ::nut
   password => 'password',
   upsmon   => 'master',
 }
-
-include ::nut::client
+::nut::user { 'remote':
+  password => 'password',
+  upsmon   => 'slave',
+}
 ::nut::client::ups { 'sua1000i@localhost':
   user     => 'local',
+  password => 'password',
+}
+```
+
+If the host does not have any UPS device directly attached, but is powered by
+one which is controlled by another host such as the one above, use the
+following:
+
+```puppet
+include ::nut:client
+::nut::client::ups { 'sua1000i@remotehost':
+  user     => 'remote',
   password => 'password',
 }
 ```
@@ -83,7 +95,8 @@ This module has been built on and tested against Puppet 4.4.0 and higher.
 
 The module has been tested on:
 
-* RedHat Enterprise Linux 7
+* RedHat Enterprise Linux 6/7
+* Ubuntu 16.04
 * OpenBSD 6.0
 
 ## Development

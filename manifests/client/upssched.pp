@@ -28,14 +28,14 @@ define nut::client::upssched (
   Variant[Nut::Device, Enum['*']]                $ups,
 ) {
 
-  if ! defined(Class['::nut::client']) {
-    fail('You must include the nut::client base class before using any nut::client defined resources')
+  if ! defined(Class['::nut::common']) {
+    fail('You must include the nut::common base class before using any nut::client defined resources')
   }
 
   if $::nut::client::use_upssched {
     ::concat::fragment { "nut upssched ${title}":
       content => template("${module_name}/upssched.at.erb"),
-      target  => "${::nut::client::conf_dir}/upssched.conf",
+      target  => "${::nut::common::conf_dir}/upssched.conf",
     }
   }
 }

@@ -12,7 +12,18 @@ describe 'nut::client' do
   when 'RedHat'
     conf_dir  = '/etc/ups'
     group     = 'nut'
-    service   = 'nut-monitor'
+    state_dir = '/var/run/nut'
+    user      = 'nut'
+    case fact('operatingsystemmajrelease')
+    when '6'
+      service = 'ups'
+    else
+      service = 'nut-monitor'
+    end
+  when 'Debian'
+    conf_dir  = '/etc/nut'
+    group     = 'nut'
+    service   = 'nut-client'
     state_dir = '/var/run/nut'
     user      = 'nut'
   end
@@ -28,35 +39,14 @@ describe 'nut::client' do
         },
       }
 
-      include ::nut
+      class { '::nut::client':
+        use_upssched => true,
+      }
 
       if $::osfamily == 'RedHat' {
         include ::epel
 
-        Class['::epel'] -> Class['::nut']
-      }
-
-      ::nut::ups { 'dummy':
-        driver => 'dummy-ups',
-        port   => 'sua1000i.dev',
-      }
-
-      file { '#{conf_dir}/sua1000i.dev':
-        ensure => file,
-        owner  => 0,
-        group  => 0,
-        mode   => '0644',
-        source => '/root/sua1000i.dev',
-        before => ::Nut::Ups['dummy'],
-      }
-
-      ::nut::user { 'test':
-        password => 'password',
-        upsmon   => 'master',
-      }
-
-      class { '::nut::client':
-        use_upssched => true,
+        Class['::epel'] -> Class['::nut::client']
       }
 
       ::nut::client::ups { 'dummy@localhost':
@@ -82,8 +72,6 @@ describe 'nut::client' do
           'upsgone',
         ],
       }
-
-      Class['::nut'] ~> Class['::nut::client']
     EOS
 
     apply_manifest(pp, :catch_failures => true)

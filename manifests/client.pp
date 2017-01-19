@@ -41,7 +41,6 @@
 # @param use_upssched Whether to use `upssched` for notifications or not.
 # @param user The unprivileged user used to drop root privileges.
 #
-# @see puppet_classes::nut ::nut
 # @see puppet_defined_types::nut::client::ups ::nut::client::ups
 # @see puppet_defined_types::nut::client::upssched ::nut::client::upssched
 class nut::client (
@@ -74,10 +73,34 @@ class nut::client (
   String                                           $user           = $::nut::params::user,
 ) inherits ::nut::params {
 
-  contain ::nut::client::install
   contain ::nut::client::config
-  contain ::nut::client::service
 
-  Class['::nut::client::install'] -> Class['::nut::client::config']
-    ~> Class['::nut::client::service']
+  class { '::nut::common':
+    certident      => $certident,
+    certpath       => $certpath,
+    certverify     => $certverify,
+    cmdscript      => $cmdscript,
+    conf_dir       => $conf_dir,
+    deadtime       => $deadtime,
+    finaldelay     => $finaldelay,
+    forcessl       => $forcessl,
+    group          => $group,
+    hostsync       => $hostsync,
+    minsupplies    => $minsupplies,
+    nocommwarntime => $nocommwarntime,
+    notifycmd      => $notifycmd,
+    notifyflag     => $notifyflag,
+    notifymsg      => $notifymsg,
+    package_name   => $package_name,
+    pollfreq       => $pollfreq,
+    pollfreqalert  => $pollfreqalert,
+    rbwarntime     => $rbwarntime,
+    service_name   => $service_name,
+    shutdowncmd    => $shutdowncmd,
+    state_dir      => $state_dir,
+    use_upssched   => $use_upssched,
+    user           => $user,
+  }
+
+  Class['::nut::client::config'] ~> Class['::nut::common::service']
 }
