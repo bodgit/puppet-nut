@@ -1,6 +1,6 @@
 {
   "name": "bodgit-nut",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "bodgit",
   "summary": "Puppet Module for managing Network UPS Tools (NUT)",
   "license": "Apache-2.0",
