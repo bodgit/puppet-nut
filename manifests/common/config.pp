@@ -1,20 +1,27 @@
 # @!visibility private
 class nut::common::config {
 
-  $certident   = $::nut::common::certident
-  $certpath    = $::nut::common::certpath
-  $certverify  = $::nut::common::certverify
-  $cmdscript   = $::nut::common::cmdscript
-  $conf_dir    = $::nut::common::conf_dir
-  $forcessl    = $::nut::common::forcessl
-  $group       = $::nut::common::group
-  $minsupplies = $::nut::common::minsupplies
-  $notifycmd   = $::nut::common::notifycmd
-  $notifyflag  = $::nut::common::notifyflag
-  $notifymsg   = $::nut::common::notifymsg
-  $shutdowncmd = $::nut::common::shutdowncmd
-  $state_dir   = $::nut::common::state_dir
-  $user        = $::nut::common::user
+  $certident      = $::nut::common::certident
+  $certpath       = $::nut::common::certpath
+  $certverify     = $::nut::common::certverify
+  $cmdscript      = $::nut::common::cmdscript
+  $conf_dir       = $::nut::common::conf_dir
+  $deadtime       = $::nut::common::deadtime
+  $finaldelay     = $::nut::common::finaldelay
+  $forcessl       = $::nut::common::forcessl
+  $group          = $::nut::common::group
+  $hostsync       = $::nut::common::hostsync
+  $minsupplies    = $::nut::common::minsupplies
+  $nocommwarntime = $::nut::common::nocommwarntime
+  $notifycmd      = $::nut::common::notifycmd
+  $notifyflag     = $::nut::common::notifyflag
+  $notifymsg      = $::nut::common::notifymsg
+  $pollfreq       = $::nut::common::pollfreq
+  $pollfreqalert  = $::nut::common::pollfreqalert
+  $rbwarntime     = $::nut::common::rbwarntime
+  $shutdowncmd    = $::nut::common::shutdowncmd
+  $state_dir      = $::nut::common::state_dir
+  $user           = $::nut::common::user
 
   ::concat { "${conf_dir}/upsmon.conf":
     owner => 0,
