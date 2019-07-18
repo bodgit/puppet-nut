@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.0.2](https://github.com/bodgit/puppet-nut/tree/v1.0.2) (2019-07-18)
+[Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.1...v1.0.2)
+
+**Fixed bugs:**
+
+- nut::common: add missing config variables [\#3](https://github.com/bodgit/puppet-nut/pull/3) ([simondeziel](https://github.com/simondeziel))
+
 ## [v1.0.1](https://github.com/bodgit/puppet-nut/tree/v1.0.1) (2017-11-06)
 [Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.0...v1.0.1)
 
