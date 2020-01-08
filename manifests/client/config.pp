@@ -24,11 +24,31 @@ class nut::client::config {
     mode   => '0644',
   }
 
-  file { $state_dir:
-    ensure => directory,
-    owner  => $user,
-    group  => $group,
-    mode   => '0640',
+  case $::osfamily {
+    'Debian': {
+      file { $state_dir:
+        ensure => directory,
+        owner  => 0,
+        group  => $group,
+        mode   => '0770',
+      }
+    }
+    'OpenBSD': {
+      file { $state_dir:
+        ensure => directory,
+        owner  => $user,
+        group  => 'wheel',
+        mode   => '0700',
+      }
+    }
+    default: {
+      file { $state_dir:
+        ensure => directory,
+        owner  => $user,
+        group  => $group,
+        mode   => '0750',
+      }
+    }
   }
 
   case $::osfamily {
