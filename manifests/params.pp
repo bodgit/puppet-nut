@@ -67,6 +67,25 @@ class nut::params {
       $upssched              = '/usr/local/sbin/upssched'
       $user                  = '_ups'
     }
+    'FreeBSD': {
+      # $apache_resources      = {}
+      # $cgi_conf_dir          = ~
+      # $cgi_package_name      = ~
+      $client_manage_package = false
+      $client_manage_service = true
+      $client_package_name   = 'nut'
+      $client_service_name   = 'nut_upsmon'
+      $conf_dir              = '/usr/local/etc/nut'
+      $driver_packages       = {}
+      $group                 = 'uucp'
+      # $http_server           = ~
+      $manage_vhost          = false
+      $server_package_name   = 'nut'
+      $server_service_name   = 'nut'
+      $state_dir             = '/var/db/nut'
+      $upssched              = '/usr/local/sbin/upssched'
+      $user                  = 'uucp'
+    }
     'Debian': {
       $apache_resources      = {
         '::apache::vhost' => {
