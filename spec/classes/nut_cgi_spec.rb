@@ -9,51 +9,64 @@ describe 'nut::cgi' do
       }
     end
 
-    it { expect { should compile }.to raise_error(/not supported on Unsupported/) }
+    it { is_expected.to compile.and_raise_error(%r{not supported on Unsupported}) }
   end
 
   on_supported_os.each do |os, facts|
-    context "on #{os}", :compile do
+    context "on #{os}" do
       let(:facts) do
         facts.merge({
           :concat_basedir => '/tmp',
         })
       end
 
-      it { should contain_class('nut::cgi') }
-      it { should contain_class('nut::cgi::config') }
-      it { should contain_class('nut::cgi::install') }
-      it { should contain_class('nut::params') }
-
       case facts[:osfamily]
       when 'OpenBSD'
-        it { should contain_concat('/var/www/conf/nut/hosts.conf') }
-        it { should contain_file('/var/www/conf/nut/upsset.conf') }
-        it { should contain_group('_ups') }
-        it { should contain_package('nut-cgi') }
-        it { should contain_user('_ups') }
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_class('nut::cgi') }
+        it { is_expected.to contain_class('nut::cgi::config') }
+        it { is_expected.to contain_class('nut::cgi::install') }
+        it { is_expected.to contain_class('nut::params') }
+        it { is_expected.to contain_concat('/var/www/conf/nut/hosts.conf') }
+        it { is_expected.to contain_file('/var/www/conf/nut') }
+        it { is_expected.to contain_file('/var/www/conf/nut/upsset.conf') }
+        it { is_expected.to contain_group('_ups') }
+        it { is_expected.to contain_package('nut-cgi') }
+        it { is_expected.to contain_user('_ups') }
       when 'RedHat'
         let(:pre_condition) do
           'include ::apache'
         end
 
-        it { should contain_apache__vhost('nut') }
-        it { should contain_concat('/etc/ups/hosts.conf') }
-        it { should contain_file('/etc/ups/upsset.conf') }
-        it { should contain_group('nut') }
-        it { should contain_package('nut-cgi') }
-        it { should contain_user('nut') }
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_apache__vhost('nut') }
+        it { is_expected.to contain_class('nut::cgi') }
+        it { is_expected.to contain_class('nut::cgi::config') }
+        it { is_expected.to contain_class('nut::cgi::install') }
+        it { is_expected.to contain_class('nut::params') }
+        it { is_expected.to contain_concat('/etc/ups/hosts.conf') }
+        it { is_expected.to contain_file('/etc/ups/upsset.conf') }
+        it { is_expected.to contain_group('nut') }
+        it { is_expected.to contain_package('nut-cgi') }
+        it { is_expected.to contain_user('nut') }
       when 'Debian'
         let(:pre_condition) do
           'include ::apache'
         end
 
-        it { should contain_apache__vhost('nut') }
-        it { should contain_concat('/etc/nut/hosts.conf') }
-        it { should contain_file('/etc/nut/upsset.conf') }
-        it { should contain_group('nut') }
-        it { should contain_package('nut-cgi') }
-        it { should contain_user('nut') }
+        it { is_expected.to compile.with_all_deps }
+        it { is_expected.to contain_apache__vhost('nut') }
+        it { is_expected.to contain_class('nut::cgi') }
+        it { is_expected.to contain_class('nut::cgi::config') }
+        it { is_expected.to contain_class('nut::cgi::install') }
+        it { is_expected.to contain_class('nut::params') }
+        it { is_expected.to contain_concat('/etc/nut/hosts.conf') }
+        it { is_expected.to contain_file('/etc/nut/upsset.conf') }
+        it { is_expected.to contain_group('nut') }
+        it { is_expected.to contain_package('nut-cgi') }
+        it { is_expected.to contain_user('nut') }
+      when 'FreeBSD'
+        it { is_expected.not_to compile.with_all_deps }
       end
     end
   end

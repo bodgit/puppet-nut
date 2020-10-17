@@ -89,33 +89,33 @@ describe 'nut::client' do
   end
 
   describe file("#{conf_dir}/upsmon.conf") do
-    it { should be_file }
-    it { should be_mode 640 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
-    its(:content) { should match /^MONITOR dummy@localhost 1 test password master$/ }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
+    its(:content) { is_expected.to match /^MONITOR dummy@localhost 1 test password master$/ }
   end
 
   describe file("#{conf_dir}/upssched.conf") do
-    it { should be_file }
-    it { should be_mode 640 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
-    its(:content) { should match /^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$/ }
-    its(:content) { should match /^LOCKFN #{state_dir}\/upssched\/upssched\.lock$/ }
-    its(:content) { should match /^AT COMMBAD \* START-TIMER upsgone 10$/ }
-    its(:content) { should match /^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$/ }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
+    its(:content) { is_expected.to match /^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$/ }
+    its(:content) { is_expected.to match /^LOCKFN #{state_dir}\/upssched\/upssched\.lock$/ }
+    its(:content) { is_expected.to match /^AT COMMBAD \* START-TIMER upsgone 10$/ }
+    its(:content) { is_expected.to match /^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$/ }
   end
 
   describe file("#{state_dir}/upssched") do
-    it { should be_directory }
-    it { should be_mode 750 }
-    it { should be_owned_by user }
-    it { should be_grouped_into group }
+    it { is_expected.to be_directory }
+    it { is_expected.to be_mode 750 }
+    it { is_expected.to be_owned_by user }
+    it { is_expected.to be_grouped_into group }
   end
 
   describe service(service) do
-    it { should be_enabled }
-    it { should be_running }
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 end

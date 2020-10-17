@@ -25,15 +25,15 @@ describe 'nut::client::ups' do
         })
       end
 
-      it { should contain_class('nut::client') }
-      it { should contain_concat__fragment('nut upsmon sua1000i@localhost') }
-      it { should contain_nut__client__ups('sua1000i@localhost') }
+      it { is_expected.to contain_class('nut::client') }
+      it { is_expected.to contain_concat__fragment('nut upsmon sua1000i@localhost') }
+      it { is_expected.to contain_nut__client__ups('sua1000i@localhost') }
 
       case facts[:osfamily]
       when 'OpenBSD'
-        it { should contain_file('/etc/nut/upssched.conf') }
+        it { is_expected.to contain_file('/etc/nut/upssched.conf') }
       when 'RedHat'
-        it { should contain_file('/etc/ups/upssched.conf') }
+        it { is_expected.to contain_file('/etc/ups/upssched.conf') }
       end
     end
   end

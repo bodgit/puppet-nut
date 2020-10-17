@@ -77,12 +77,12 @@ describe 'nut' do
   end
 
   describe file("#{conf_dir}/ups.conf") do
-    it { should be_file }
-    it { should be_mode 640 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
     its(:content) do
-      should eq <<-EOS.gsub(/^ +/, '')
+      is_expected.to eq <<-EOS.gsub(/^ +/, '')
         # !!! Managed by Puppet !!!
 
         [dummy]
@@ -93,12 +93,12 @@ describe 'nut' do
   end
 
   describe file("#{conf_dir}/upsd.users") do
-    it { should be_file }
-    it { should be_mode 640 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 640 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
     its(:content) do
-      should eq <<-EOS.gsub(/^ +/, '')
+      is_expected.to eq <<-EOS.gsub(/^ +/, '')
         # !!! Managed by Puppet !!!
 
         [test]
@@ -109,19 +109,19 @@ describe 'nut' do
   end
 
   describe file(state_dir) do
-    it { should be_directory }
-    it { should be_mode 750 }
-    it { should be_owned_by user }
-    it { should be_grouped_into group }
+    it { is_expected.to be_directory }
+    it { is_expected.to be_mode 750 }
+    it { is_expected.to be_owned_by user }
+    it { is_expected.to be_grouped_into group }
   end
 
   describe service(service) do
-    it { should be_enabled }
-    it { should be_running }
+    it { is_expected.to be_enabled }
+    it { is_expected.to be_running }
   end
 
   describe command('upsc dummy') do
-    its(:exit_status) { should eq 0 }
-    its(:stdout) { should match /^ups\.model: Smart-UPS 1000$/ }
+    its(:exit_status) { is_expected.to eq 0 }
+    its(:stdout) { is_expected.to match /^ups\.model: Smart-UPS 1000$/ }
   end
 end

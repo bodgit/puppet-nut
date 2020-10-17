@@ -158,24 +158,24 @@ describe 'nut::cgi' do
   end
 
   describe file("#{cgi_conf_dir}/hosts.conf") do
-    it { should be_file }
-    it { should be_mode 644 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
-    its(:content) { should match /^MONITOR dummy@localhost "Dummy UPS"$/ }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
+    its(:content) { is_expected.to match /^MONITOR dummy@localhost "Dummy UPS"$/ }
   end
 
   describe file("#{cgi_conf_dir}/upsset.conf") do
-    it { should be_file }
-    it { should be_mode 644 }
-    it { should be_owned_by 'root' }
-    it { should be_grouped_into group }
-    its(:content) { should match /^I_HAVE_SECURED_MY_CGI_DIRECTORY$/ }
+    it { is_expected.to be_file }
+    it { is_expected.to be_mode 644 }
+    it { is_expected.to be_owned_by 'root' }
+    it { is_expected.to be_grouped_into group }
+    its(:content) { is_expected.to match /^I_HAVE_SECURED_MY_CGI_DIRECTORY$/ }
   end
 
   describe command("curl '#{url}'") do
-    its(:exit_status) { should eq 0 }
-    its(:stdout) { should match /^<FONT SIZE="\+2">Dummy UPS<\/FONT>$/ }
-    its(:stdout) { should match /^<TD>Smart-UPS 1000<br><\/TD>$/ }
+    its(:exit_status) { is_expected.to eq 0 }
+    its(:stdout) { is_expected.to match /^<FONT SIZE="\+2">Dummy UPS<\/FONT>$/ }
+    its(:stdout) { is_expected.to match /^<TD>Smart-UPS 1000<br><\/TD>$/ }
   end
 end

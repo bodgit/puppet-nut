@@ -17,15 +17,17 @@ describe 'nut::user' do
   end
 
   on_supported_os.each do |os, facts|
-    context "on #{os}", :compile do
+    context "on #{os}" do
       let(:facts) do
         facts.merge({
           :concat_basedir => '/tmp',
         })
       end
 
-      it { should contain_concat__fragment('nut user test') }
-      it { should contain_nut__user('test') }
+      it { is_expected.to compile.with_all_deps }
+
+      it { is_expected.to contain_concat__fragment('nut user test') }
+      it { is_expected.to contain_nut__user('test') }
     end
   end
 end

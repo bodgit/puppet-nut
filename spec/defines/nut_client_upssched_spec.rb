@@ -30,9 +30,9 @@ describe 'nut::client::upssched' do
         })
       end
 
-      it { should contain_class('nut::client') }
-      it { should contain_concat__fragment('nut upssched test upssched event') }
-      it { should contain_nut__client__upssched('test upssched event') }
+      it { is_expected.to contain_class('nut::client') }
+      it { is_expected.to contain_concat__fragment('nut upssched test upssched event') }
+      it { is_expected.to contain_nut__client__upssched('test upssched event') }
     end
   end
 end

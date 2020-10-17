@@ -55,6 +55,12 @@
       "operatingsystemrelease": [
         "6.0"
       ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "12"
+      ]
     }
   ],
   "requirements": [

@@ -25,32 +25,34 @@ describe 'nut::client' do
       }
     end
 
-    it { expect { should compile }.to raise_error(/not supported on Unsupported/) }
+    it { is_expected.to compile.and_raise_error(%r{not supported on Unsupported}) }
   end
 
   on_supported_os.each do |os, facts|
-    context "on #{os}", :compile do
+    context "on #{os}" do
       let(:facts) do
         facts.merge({
           :concat_basedir => '/tmp',
         })
       end
 
-      it { should contain_class('nut::client') }
-      it { should contain_class('nut::client::config') }
-      it { should contain_class('nut::common') }
-      it { should contain_class('nut::common::config') }
-      it { should contain_class('nut::common::install') }
-      it { should contain_class('nut::common::service') }
-      it { should contain_class('nut::params') }
-      it { should contain_concat__fragment('nut upssched header') }
+      it { is_expected.to compile.with_all_deps }
+
+      it { is_expected.to contain_class('nut::client') }
+      it { is_expected.to contain_class('nut::client::config') }
+      it { is_expected.to contain_class('nut::common') }
+      it { is_expected.to contain_class('nut::common::config') }
+      it { is_expected.to contain_class('nut::common::install') }
+      it { is_expected.to contain_class('nut::common::service') }
+      it { is_expected.to contain_class('nut::params') }
+      it { is_expected.to contain_concat__fragment('nut upssched header') }
 
       case facts[:osfamily]
       when 'OpenBSD'
-        it { should contain_concat('/etc/nut/upsmon.conf') }
-        it { should contain_concat('/etc/nut/upssched.conf') }
+        it { is_expected.to contain_concat('/etc/nut/upsmon.conf') }
+        it { is_expected.to contain_concat('/etc/nut/upssched.conf') }
         it {
-          should contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
             RUN_AS_USER _ups
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -66,19 +68,19 @@ describe 'nut::client' do
             NOTIFYFLAG REPLBATT SYSLOG+WALL+EXEC
           EOS
         }
-        it { should contain_file('/etc/nut') }
-        it { should_not contain_file('/etc/nut/upssched.conf') }
-        it { should contain_file('/var/db/nut') }
-        it { should contain_file('/var/db/nut/upssched') }
-        it { should contain_group('_ups') }
-        it { should contain_package('nut') }
-        it { should contain_service('upsmon') }
-        it { should contain_user('_ups') }
+        it { is_expected.to contain_file('/etc/nut') }
+        it { is_expected.not_to contain_file('/etc/nut/upssched.conf') }
+        it { is_expected.to contain_file('/var/db/nut') }
+        it { is_expected.to contain_file('/var/db/nut/upssched') }
+        it { is_expected.to contain_group('_ups') }
+        it { is_expected.to contain_package('nut') }
+        it { is_expected.to contain_service('upsmon') }
+        it { is_expected.to contain_user('_ups') }
       when 'RedHat'
-        it { should contain_concat('/etc/ups/upsmon.conf') }
-        it { should contain_concat('/etc/ups/upssched.conf') }
+        it { is_expected.to contain_concat('/etc/ups/upsmon.conf') }
+        it { is_expected.to contain_concat('/etc/ups/upssched.conf') }
         it {
-          should contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
             RUN_AS_USER nut
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -94,18 +96,18 @@ describe 'nut::client' do
             NOTIFYFLAG REPLBATT SYSLOG+WALL+EXEC
           EOS
         }
-        it { should contain_file('/etc/ups') }
-        it { should_not contain_file('/etc/ups/upssched.conf') }
-        it { should contain_file('/var/run/nut') }
-        it { should contain_file('/var/run/nut/upssched') }
-        it { should contain_group('nut') }
-        it { should contain_package('nut-client') }
-        it { should contain_user('nut') }
+        it { is_expected.to contain_file('/etc/ups') }
+        it { is_expected.not_to contain_file('/etc/ups/upssched.conf') }
+        it { is_expected.to contain_file('/var/run/nut') }
+        it { is_expected.to contain_file('/var/run/nut/upssched') }
+        it { is_expected.to contain_group('nut') }
+        it { is_expected.to contain_package('nut-client') }
+        it { is_expected.to contain_user('nut') }
 
         case facts[:operatingsystemmajrelease]
         when '6'
           it {
-            should contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(/^ {14}/, ''))
+            is_expected.to contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(/^ {14}/, ''))
               # !!! Managed by Puppet !!!
 
               SERVER=no
@@ -113,16 +115,16 @@ describe 'nut::client' do
               POWERDOWNFLAG=/etc/ups/killpower
             EOS
           }
-          it { should contain_service('ups') }
+          it { is_expected.to contain_service('ups') }
         else
-          it { should_not contain_file('/etc/sysconfig/ups') }
-          it { should contain_service('nut-monitor') }
+          it { is_expected.not_to contain_file('/etc/sysconfig/ups') }
+          it { is_expected.to contain_service('nut-monitor') }
         end
       when 'Debian'
-        it { should contain_concat('/etc/nut/upsmon.conf') }
-        it { should contain_concat('/etc/nut/upssched.conf') }
+        it { is_expected.to contain_concat('/etc/nut/upsmon.conf') }
+        it { is_expected.to contain_concat('/etc/nut/upssched.conf') }
         it {
-          should contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
             RUN_AS_USER nut
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -138,31 +140,59 @@ describe 'nut::client' do
             NOTIFYFLAG REPLBATT SYSLOG+WALL+EXEC
           EOS
         }
-        it { should contain_file('/etc/nut') }
+        it { is_expected.to contain_file('/etc/nut') }
         it {
-          should contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(/^ {12}/, ''))
             # !!! Managed by Puppet !!!
 
             MODE=netclient
           EOS
         }
-        it { should_not contain_file('/etc/nut/upssched.conf') }
-        it { should contain_file('/var/run/nut') }
-        it { should contain_file('/var/run/nut/upssched') }
-        it { should contain_group('nut') }
-        it { should contain_package('nut-client') }
-        it { should contain_user('nut') }
+        it { is_expected.not_to contain_file('/etc/nut/upssched.conf') }
+        it { is_expected.to contain_file('/var/run/nut') }
+        it { is_expected.to contain_file('/var/run/nut/upssched') }
+        it { is_expected.to contain_group('nut') }
+        it { is_expected.to contain_package('nut-client') }
+        it { is_expected.to contain_user('nut') }
         case facts[:operatingsystem]
         when 'Ubuntu'
-          it { should contain_service('nut-client') }
+          it { is_expected.to contain_service('nut-client') }
         else
           case facts[:operatingsystemmajrelease]
           when '7'
-            it { should contain_service('nut-client') }
+            it { is_expected.to contain_service('nut-client') }
           else
-            it { should contain_service('nut-monitor') }
+            it { is_expected.to contain_service('nut-monitor') }
           end
         end
+      when 'FreeBSD'
+        it { is_expected.to contain_concat('/usr/local/etc/nut/upsmon.conf') }
+        it { is_expected.to contain_concat('/usr/local/etc/nut/upssched.conf') }
+        it {
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+            RUN_AS_USER uucp
+            MINSUPPLIES 1
+            SHUTDOWNCMD "/sbin/shutdown -h +0"
+            POWERDOWNFLAG /usr/local/etc/nut/killpower
+            NOTIFYCMD "/usr/local/sbin/upssched"
+            NOTIFYFLAG ONLINE IGNORE
+            NOTIFYFLAG ONBATT SYSLOG
+            NOTIFYFLAG LOWBATT WALL
+            NOTIFYFLAG FSD SYSLOG+WALL
+            NOTIFYFLAG COMMOK EXEC
+            NOTIFYFLAG COMMBAD SYSLOG+EXEC
+            NOTIFYFLAG SHUTDOWN WALL+EXEC
+            NOTIFYFLAG REPLBATT SYSLOG+WALL+EXEC
+          EOS
+        }
+        it { is_expected.to contain_file('/usr/local/etc/nut') }
+        it { is_expected.not_to contain_file('/usr/local/etc/nut/upssched.conf') }
+        it { is_expected.to contain_file('/var/db/nut') }
+        it { is_expected.to contain_file('/var/db/nut/upssched') }
+        it { is_expected.to contain_group('uucp') }
+        it { is_expected.to contain_package('nut') }
+        it { is_expected.to contain_service('nut_upsmon') }
+        it { is_expected.to contain_user('uucp') }
       end
     end
   end
