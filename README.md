@@ -5,7 +5,6 @@ Tested with Travis CI
 [![Build Status](https://travis-ci.org/bodgit/puppet-nut.svg?branch=master)](https://travis-ci.org/bodgit/puppet-nut)
 [![Coverage Status](https://coveralls.io/repos/bodgit/puppet-nut/badge.svg?branch=master&service=github)](https://coveralls.io/github/bodgit/puppet-nut?branch=master)
 [![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/nut.svg)](https://forge.puppetlabs.com/bodgit/nut)
-[![Dependency Status](https://gemnasium.com/bodgit/puppet-nut.svg)](https://gemnasium.com/bodgit/puppet-nut)
 
 #### Table of Contents
 
