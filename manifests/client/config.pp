@@ -30,15 +30,15 @@ class nut::client::config {
         ensure => directory,
         owner  => 0,
         group  => $group,
-        mode   => '0770',
+        mode   => '0660',
       }
     }
     'OpenBSD': {
       file { $state_dir:
         ensure => directory,
         owner  => $user,
-        group  => 'wheel',
-        mode   => '0700',
+        group  => 0,
+        mode   => '0600',
       }
     }
     default: {
@@ -46,7 +46,7 @@ class nut::client::config {
         ensure => directory,
         owner  => $user,
         group  => $group,
-        mode   => '0750',
+        mode   => '0640',
       }
     }
   }
