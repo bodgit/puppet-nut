@@ -31,8 +31,8 @@ class nut::cgi (
   String                  $user             = $::nut::params::user,
 ) inherits ::nut::params {
 
-  contain ::nut::cgi::install
-  contain ::nut::cgi::config
+  contain nut::cgi::install
+  contain nut::cgi::config
 
   Class['::nut::cgi::install'] -> Class['::nut::cgi::config']
 }

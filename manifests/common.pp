@@ -28,9 +28,9 @@ class nut::common (
   Optional[Integer[0]]                             $rbwarntime     = undef,
 ) {
 
-  contain ::nut::common::install
-  contain ::nut::common::config
-  contain ::nut::common::service
+  contain nut::common::install
+  contain nut::common::config
+  contain nut::common::service
 
   Class['::nut::common::install'] -> Class['::nut::common::config']
     ~> Class['::nut::common::service']

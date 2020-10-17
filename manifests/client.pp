@@ -73,9 +73,9 @@ class nut::client (
   String                                           $user           = $::nut::params::user,
 ) inherits ::nut::params {
 
-  contain ::nut::client::config
+  contain nut::client::config
 
-  class { '::nut::common':
+  class { 'nut::common':
     certident      => $certident,
     certpath       => $certpath,
     certverify     => $certverify,

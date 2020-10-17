@@ -104,11 +104,11 @@ class nut (
   String                                           $user                  = $::nut::params::user,
 ) inherits ::nut::params {
 
-  contain ::nut::install
-  contain ::nut::config
-  contain ::nut::service
+  contain nut::install
+  contain nut::config
+  contain nut::service
 
-  class { '::nut::common':
+  class { 'nut::common':
     certident      => $client_certident,
     certpath       => $client_certpath,
     certverify     => $client_certverify,
