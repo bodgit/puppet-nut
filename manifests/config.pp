@@ -13,7 +13,7 @@ class nut::config {
   $statepath   = $::nut::statepath
   $user        = $::nut::user
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
 
       # So udev rules take effect
@@ -74,9 +74,9 @@ class nut::config {
     content => template("${module_name}/upsd.conf.erb"),
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      case $::operatingsystemmajrelease {
+      case $facts['os']['release']['major'] {
         '6': {
           $server = true
 

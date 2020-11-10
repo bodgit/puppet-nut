@@ -32,6 +32,6 @@ class nut::common (
   contain nut::common::config
   contain nut::common::service
 
-  Class['::nut::common::install'] -> Class['::nut::common::config']
-    ~> Class['::nut::common::service']
+  Class['nut::common::install'] -> Class['nut::common::config']
+    ~> Class['nut::common::service']
 }

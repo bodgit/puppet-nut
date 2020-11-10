@@ -24,7 +24,7 @@ class nut::client::config {
     mode   => '0644',
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'Debian': {
       file { $state_dir:
         ensure => directory,
@@ -51,9 +51,9 @@ class nut::client::config {
     }
   }
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
-      case $::operatingsystemmajrelease {
+      case $facts['os']['release']['major'] {
         '6': {
           $server = false
 

@@ -71,7 +71,7 @@ class nut::client (
   String                                           $shutdowncmd    = $::nut::params::shutdown_command,
   Stdlib::Absolutepath                             $state_dir      = $::nut::params::state_dir,
   String                                           $user           = $::nut::params::user,
-) inherits ::nut::params {
+) inherits nut::params {
 
   contain nut::client::config
 
@@ -102,5 +102,5 @@ class nut::client (
     user           => $user,
   }
 
-  Class['::nut::client::config'] ~> Class['::nut::common::service']
+  Class['nut::client::config'] ~> Class['nut::common::service']
 }

@@ -29,10 +29,10 @@ class nut::cgi (
   Boolean                 $manage_vhost     = $::nut::params::manage_vhost,
   String                  $package_name     = $::nut::params::cgi_package_name,
   String                  $user             = $::nut::params::user,
-) inherits ::nut::params {
+) inherits nut::params {
 
   contain nut::cgi::install
   contain nut::cgi::config
 
-  Class['::nut::cgi::install'] -> Class['::nut::cgi::config']
+  Class['nut::cgi::install'] -> Class['nut::cgi::config']
 }

@@ -3,12 +3,12 @@ class nut::params {
 
   $shutdown_command    = '/sbin/shutdown -h +0'
 
-  case $::osfamily {
+  case $facts['os']['family'] {
     'RedHat': {
       $apache_resources    = {
         '::apache::vhost' => {
           'nut' => {
-            'servername'  => "nut.${::domain}",
+            'servername'  => "nut.${facts['networking']['domain']}",
             'port'        => 80,
             'docroot'     => '/var/www/html',
             'scriptalias' => '/var/www/nut-cgi-bin',
@@ -30,7 +30,7 @@ class nut::params {
       $upssched            = '/usr/sbin/upssched'
       $user                = 'nut'
 
-      case $::operatingsystemmajrelease {
+      case $facts['os']['release']['major'] {
         '6': {
           $client_manage_package = true
           $client_manage_service = false
@@ -90,7 +90,7 @@ class nut::params {
       $apache_resources      = {
         '::apache::vhost' => {
           'nut' => {
-            'servername'  => "nut.${::domain}",
+            'servername'  => "nut.${facts['networking']['domain']}",
             'port'        => 80,
             'docroot'     => '/usr/share/nut/www',
             'scriptalias' => '/usr/lib/cgi-bin',
@@ -117,12 +117,12 @@ class nut::params {
       $upssched              = '/sbin/upssched'
       $user                  = 'nut'
 
-      case $::operatingsystem {
+      case $facts['os']['name'] {
         'Ubuntu': {
           $client_service_name = 'nut-client'
         }
         default: {
-          case $::operatingsystemmajrelease {
+          case $facts['os']['release']['major'] {
             '7': {
               $client_service_name = 'nut-client'
             }
@@ -134,7 +134,7 @@ class nut::params {
       }
     }
     default: {
-      fail("The ${module_name} module is not supported on ${::osfamily} based system.")
+      fail("The ${module_name} module is not supported on ${facts['os']['family']} based system.")
     }
   }
 }

@@ -29,7 +29,7 @@ define nut::user (
   String                            $user     = $title,
 ) {
 
-  if ! defined(Class['::nut']) {
+  if ! defined(Class['nut']) {
     fail('You must include the nut base class before using any nut defined resources')
   }
 

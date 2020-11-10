@@ -102,7 +102,7 @@ class nut (
   String                                           $service_name          = $::nut::params::server_service_name,
   Stdlib::Absolutepath                             $statepath             = $::nut::params::state_dir,
   String                                           $user                  = $::nut::params::user,
-) inherits ::nut::params {
+) inherits nut::params {
 
   contain nut::install
   contain nut::config
@@ -137,15 +137,15 @@ class nut (
     user           => $user,
   }
 
-  Class['::nut::install'] -> Class['::nut::config'] ~> Class['::nut::service']
+  Class['nut::install'] -> Class['nut::config'] ~> Class['nut::service']
 
   if $client_manage_service {
     # If the client manages its own service then the client should depend on
     # the server being up
-    Class['::nut::service'] -> Class['::nut::common']
+    Class['nut::service'] -> Class['nut::common']
   } else {
     # If the server service starts everything up then we need to have the
     # client configured before the service starts
-    Class['::nut::config'] -> Class['::nut::common'] ~> Class['::nut::service']
+    Class['nut::config'] -> Class['nut::common'] ~> Class['nut::service']
   }
 }
