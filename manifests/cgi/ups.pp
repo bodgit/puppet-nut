@@ -15,7 +15,7 @@ define nut::cgi::ups (
   Nut::Device $ups         = $title,
 ) {
 
-  if ! defined(Class['::nut::cgi']) {
+  if ! defined(Class['nut::cgi']) {
     fail('You must include the nut::cgi base class before using any nut::cgi defined resources')
   }
 

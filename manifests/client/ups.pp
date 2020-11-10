@@ -47,7 +47,7 @@ define nut::client::ups (
   Nut::Device                               $ups        = $title,
 ) {
 
-  if ! defined(Class['::nut::common']) {
+  if ! defined(Class['nut::common']) {
     fail('You must include the nut::common base class before using any nut::client defined resources')
   }
 

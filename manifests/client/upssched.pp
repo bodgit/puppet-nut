@@ -28,7 +28,7 @@ define nut::client::upssched (
   Variant[Nut::Device, Enum['*']]                $ups,
 ) {
 
-  if ! defined(Class['::nut::common']) {
+  if ! defined(Class['nut::common']) {
     fail('You must include the nut::common base class before using any nut::client defined resources')
   }
 
