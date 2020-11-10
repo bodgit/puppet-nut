@@ -1,7 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'nut' do
-
   case fact('osfamily')
   when 'OpenBSD'
     conf_dir  = '/etc/nut'
@@ -14,12 +13,12 @@ describe 'nut' do
     group     = 'nut'
     state_dir = '/var/run/nut'
     user      = 'nut'
-    case fact('operatingsystemmajrelease')
-    when '6'
-      service = 'ups'
-    else
-      service = 'nut-server'
-    end
+    service = case fact('operatingsystemmajrelease')
+              when '6'
+                'ups'
+              else
+                'nut-server'
+              end
   when 'Debian'
     conf_dir  = '/etc/nut'
     group     = 'nut'
@@ -28,8 +27,7 @@ describe 'nut' do
     user      = 'nut'
   end
 
-  it 'should work with no errors' do
-
+  it 'works with no errors' do
     pp = <<-EOS
       Package {
         source => $::osfamily ? {
@@ -72,8 +70,8 @@ describe 'nut' do
       }
     EOS
 
-    apply_manifest(pp, :catch_failures => true)
-    apply_manifest(pp, :catch_changes  => true)
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes:  true)
   end
 
   describe file("#{conf_dir}/ups.conf") do
@@ -82,7 +80,7 @@ describe 'nut' do
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into group }
     its(:content) do
-      is_expected.to eq <<-EOS.gsub(/^ +/, '')
+      is_expected.to eq <<-EOS.gsub(%r{^ +}, '')
         # !!! Managed by Puppet !!!
 
         [dummy]
@@ -98,7 +96,7 @@ describe 'nut' do
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into group }
     its(:content) do
-      is_expected.to eq <<-EOS.gsub(/^ +/, '')
+      is_expected.to eq <<-EOS.gsub(%r{^ +}, '')
         # !!! Managed by Puppet !!!
 
         [test]
@@ -122,6 +120,6 @@ describe 'nut' do
 
   describe command('upsc dummy') do
     its(:exit_status) { is_expected.to eq 0 }
-    its(:stdout) { is_expected.to match /^ups\.model: Smart-UPS 1000$/ }
+    its(:stdout) { is_expected.to match %r{^ups\.model: Smart-UPS 1000$} }
   end
 end

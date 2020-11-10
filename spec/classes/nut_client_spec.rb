@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nut::client' do
-
   let(:params) do
     {
       'notifyflag'   => {
@@ -21,7 +20,7 @@ describe 'nut::client' do
   context 'on unsupported distributions' do
     let(:facts) do
       {
-        :osfamily => 'Unsupported'
+        osfamily: 'Unsupported',
       }
     end
 
@@ -31,9 +30,7 @@ describe 'nut::client' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -47,12 +44,14 @@ describe 'nut::client' do
       it { is_expected.to contain_class('nut::params') }
       it { is_expected.to contain_concat__fragment('nut upssched header') }
 
+      # rubocop:disable RepeatedExample
+
       case facts[:osfamily]
       when 'OpenBSD'
         it { is_expected.to contain_concat('/etc/nut/upsmon.conf') }
         it { is_expected.to contain_concat('/etc/nut/upssched.conf') }
         it {
-          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             RUN_AS_USER _ups
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -80,7 +79,7 @@ describe 'nut::client' do
         it { is_expected.to contain_concat('/etc/ups/upsmon.conf') }
         it { is_expected.to contain_concat('/etc/ups/upssched.conf') }
         it {
-          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             RUN_AS_USER nut
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -107,7 +106,7 @@ describe 'nut::client' do
         case facts[:operatingsystemmajrelease]
         when '6'
           it {
-            is_expected.to contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(/^ {14}/, ''))
+            is_expected.to contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(%r{^ {14}}, ''))
               # !!! Managed by Puppet !!!
 
               SERVER=no
@@ -124,7 +123,7 @@ describe 'nut::client' do
         it { is_expected.to contain_concat('/etc/nut/upsmon.conf') }
         it { is_expected.to contain_concat('/etc/nut/upssched.conf') }
         it {
-          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             RUN_AS_USER nut
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"
@@ -142,7 +141,7 @@ describe 'nut::client' do
         }
         it { is_expected.to contain_file('/etc/nut') }
         it {
-          is_expected.to contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             # !!! Managed by Puppet !!!
 
             MODE=netclient
@@ -169,7 +168,7 @@ describe 'nut::client' do
         it { is_expected.to contain_concat('/usr/local/etc/nut/upsmon.conf') }
         it { is_expected.to contain_concat('/usr/local/etc/nut/upssched.conf') }
         it {
-          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_concat__fragment('nut upsmon header').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             RUN_AS_USER uucp
             MINSUPPLIES 1
             SHUTDOWNCMD "/sbin/shutdown -h +0"

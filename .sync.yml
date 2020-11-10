@@ -5,6 +5,10 @@ appveyor.yml:
   delete: true
 .gitlab-ci.yml:
   delete: true
+.rubocop.yml:
+  default_configs:
+    Layout/AlignHash:
+      EnforcedHashRocketStyle: table
 .travis.yml:
   notifications:
     email: true

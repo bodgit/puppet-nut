@@ -1,7 +1,6 @@
 require 'spec_helper_acceptance'
 
 describe 'nut::client' do
-
   case fact('osfamily')
   when 'OpenBSD'
     conf_dir  = '/etc/nut'
@@ -14,32 +13,31 @@ describe 'nut::client' do
     group     = 'nut'
     state_dir = '/var/run/nut'
     user      = 'nut'
-    case fact('operatingsystemmajrelease')
-    when '6'
-      service = 'ups'
-    else
-      service = 'nut-monitor'
-    end
+    service = case fact('operatingsystemmajrelease')
+              when '6'
+                'ups'
+              else
+                'nut-monitor'
+              end
   when 'Debian'
     conf_dir  = '/etc/nut'
     group     = 'nut'
     state_dir = '/var/run/nut'
     user      = 'nut'
-    case fact('operatingsystem')
-    when 'Ubuntu'
-      service = 'nut-client'
-    else
-      case fact('operatingsystemmajrelease')
-      when '7'
-        service = 'nut-client'
-      else
-        service = 'nut-monitor'
-      end
-    end
+    service = case fact('operatingsystem')
+              when 'Ubuntu'
+                'nut-client'
+              else
+                case fact('operatingsystemmajrelease')
+                when '7'
+                  'nut-client'
+                else
+                  'nut-monitor'
+                end
+              end
   end
 
-  it 'should work with no errors' do
-
+  it 'works with no errors' do
     pp = <<-EOS
       Package {
         source => $::osfamily ? {
@@ -84,8 +82,8 @@ describe 'nut::client' do
       }
     EOS
 
-    apply_manifest(pp, :catch_failures => true)
-    apply_manifest(pp, :catch_changes  => true)
+    apply_manifest(pp, catch_failures: true)
+    apply_manifest(pp, catch_changes:  true)
   end
 
   describe file("#{conf_dir}/upsmon.conf") do
@@ -93,7 +91,7 @@ describe 'nut::client' do
     it { is_expected.to be_mode 640 }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into group }
-    its(:content) { is_expected.to match /^MONITOR dummy@localhost 1 test password master$/ }
+    its(:content) { is_expected.to match %r{^MONITOR dummy@localhost 1 test password master$} }
   end
 
   describe file("#{conf_dir}/upssched.conf") do
@@ -101,10 +99,10 @@ describe 'nut::client' do
     it { is_expected.to be_mode 640 }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into group }
-    its(:content) { is_expected.to match /^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$/ }
-    its(:content) { is_expected.to match /^LOCKFN #{state_dir}\/upssched\/upssched\.lock$/ }
-    its(:content) { is_expected.to match /^AT COMMBAD \* START-TIMER upsgone 10$/ }
-    its(:content) { is_expected.to match /^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$/ }
+    its(:content) { is_expected.to match %r{^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$} }
+    its(:content) { is_expected.to match %r{^LOCKFN #{state_dir}\/upssched\/upssched\.lock$} }
+    its(:content) { is_expected.to match %r{^AT COMMBAD \* START-TIMER upsgone 10$} }
+    its(:content) { is_expected.to match %r{^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$} }
   end
 
   describe file("#{state_dir}/upssched") do

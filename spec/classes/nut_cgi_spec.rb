@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe 'nut::cgi' do
-
   context 'on unsupported distributions' do
     let(:facts) do
       {
-        :osfamily => 'Unsupported'
+        osfamily: 'Unsupported',
       }
     end
 
@@ -15,10 +14,10 @@ describe 'nut::cgi' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
+
+      # rubocop:disable RepeatedExample
 
       case facts[:osfamily]
       when 'OpenBSD'

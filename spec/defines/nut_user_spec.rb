@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nut::user' do
-
   let(:pre_condition) do
     'include ::nut'
   end
@@ -19,9 +18,7 @@ describe 'nut::user' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
 
       it { is_expected.to compile.with_all_deps }

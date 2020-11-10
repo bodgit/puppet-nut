@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe 'nut' do
-
   context 'on unsupported distributions' do
     let(:facts) do
       {
-        :osfamily => 'Unsupported'
+        osfamily: 'Unsupported',
       }
     end
 
@@ -15,9 +14,7 @@ describe 'nut' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
 
       it { is_expected.to compile.with_all_deps }
@@ -31,6 +28,8 @@ describe 'nut' do
       it { is_expected.to contain_class('nut::install') }
       it { is_expected.to contain_class('nut::params') }
       it { is_expected.to contain_class('nut::service') }
+
+      # rubocop:disable RepeatedExample
 
       case facts[:osfamily]
       when 'OpenBSD'
@@ -59,7 +58,7 @@ describe 'nut' do
         case facts[:operatingsystemmajrelease]
         when '6'
           it {
-            is_expected.to contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(/^ {14}/, ''))
+            is_expected.to contain_file('/etc/sysconfig/ups').with_content(<<-EOS.gsub(%r{^ {14}}, ''))
               # !!! Managed by Puppet !!!
 
               SERVER=yes
@@ -77,7 +76,7 @@ describe 'nut' do
         it { is_expected.to contain_concat('/etc/nut/upsd.users') }
         it { is_expected.to contain_file('/etc/nut') }
         it {
-          is_expected.to contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(/^ {12}/, ''))
+          is_expected.to contain_file('/etc/nut/nut.conf').with_content(<<-EOS.gsub(%r{^ {12}}, ''))
             # !!! Managed by Puppet !!!
 
             MODE=netserver

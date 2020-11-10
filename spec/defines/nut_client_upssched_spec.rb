@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nut::client::upssched' do
-
   let(:pre_condition) do
     'class { "::nut::client": use_upssched => true }'
   end
@@ -25,9 +24,7 @@ describe 'nut::client::upssched' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
 
       it { is_expected.to contain_class('nut::client') }

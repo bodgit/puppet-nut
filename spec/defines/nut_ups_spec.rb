@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'nut::ups' do
-
   let(:pre_condition) do
     'include ::nut'
   end
@@ -9,9 +8,7 @@ describe 'nut::ups' do
   on_supported_os.each do |os, facts|
     context "on #{os}" do
       let(:facts) do
-        facts.merge({
-          :concat_basedir => '/tmp',
-        })
+        facts
       end
 
       context 'with a USB UPS' do
@@ -48,6 +45,8 @@ describe 'nut::ups' do
 
         it { is_expected.to contain_concat__fragment('nut ups snmp-ups') }
         it { is_expected.to contain_nut__ups('snmp-ups') }
+
+        # rubocop:disable RepeatedExample
 
         case facts[:osfamily]
         when 'OpenBSD'
