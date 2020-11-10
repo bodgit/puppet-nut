@@ -1,3 +1,13 @@
 fixtures:
   symlinks:
     nut: "#{source_dir}"
+  forge_modules:
+    apache:
+      repo: "puppetlabs/apache"
+      ref: "5.6.0"
+    concat:
+      repo: "puppetlabs/concat"
+      ref: "6.2.0"
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "6.5.0"
