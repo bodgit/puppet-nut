@@ -1,14 +1,31 @@
-# Changelog
+# Change log
+
+All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
+
+## [v2.0.0](https://github.com/bodgit/puppet-nut/tree/v2.0.0) (2020-11-12)
+
+[Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.3...v2.0.0)
+
+### Changed
+
+- Drop old Debian 7.x [\#11](https://github.com/bodgit/puppet-nut/pull/11) ([bodgit](https://github.com/bodgit))
+- Drop old Puppet versions [\#9](https://github.com/bodgit/puppet-nut/pull/9) ([bodgit](https://github.com/bodgit))
+
+### Added
+
+- Bump dependencies [\#10](https://github.com/bodgit/puppet-nut/pull/10) ([bodgit](https://github.com/bodgit))
+- Convert to PDK [\#8](https://github.com/bodgit/puppet-nut/pull/8) ([bodgit](https://github.com/bodgit))
+- Replace deprecated thrnio/ip module by puppetlabs/stdlib [\#7](https://github.com/bodgit/puppet-nut/pull/7) ([simondeziel](https://github.com/simondeziel))
 
 ## [v1.0.3](https://github.com/bodgit/puppet-nut/tree/v1.0.3) (2020-10-17)
 
 [Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.2...v1.0.3)
 
-**Implemented enhancements:**
+### Added
 
 - Include param defaults for FreeBSD [\#6](https://github.com/bodgit/puppet-nut/pull/6) ([xaque208](https://github.com/xaque208))
 
-**Fixed bugs:**
+### Fixed
 
 - nut::client::config: preserve OS/package settings of state\_dir [\#4](https://github.com/bodgit/puppet-nut/pull/4) ([simondeziel](https://github.com/simondeziel))
 
@@ -16,7 +33,7 @@
 
 [Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.1...v1.0.2)
 
-**Fixed bugs:**
+### Fixed
 
 - nut::common: add missing config variables [\#3](https://github.com/bodgit/puppet-nut/pull/3) ([simondeziel](https://github.com/simondeziel))
 
