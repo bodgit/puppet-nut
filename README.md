@@ -1,10 +1,10 @@
 # nut
 
-Tested with Travis CI
-
 [![Build Status](https://travis-ci.org/bodgit/puppet-nut.svg?branch=master)](https://travis-ci.org/bodgit/puppet-nut)
-[![Coverage Status](https://coveralls.io/repos/bodgit/puppet-nut/badge.svg?branch=master&service=github)](https://coveralls.io/github/bodgit/puppet-nut?branch=master)
-[![Puppet Forge](http://img.shields.io/puppetforge/v/bodgit/nut.svg)](https://forge.puppetlabs.com/bodgit/nut)
+[![Codecov](https://img.shields.io/codecov/c/github/bodgit/puppet-nut)](https://codecov.io/gh/bodgit/puppet-nut)
+[![Puppet Forge version](http://img.shields.io/puppetforge/v/bodgit/nut)](https://forge.puppetlabs.com/bodgit/nut)
+[![Puppet Forge downloads](https://img.shields.io/puppetforge/dt/bodgit/nut)](https://forge.puppetlabs.com/bodgit/nut)
+[![Puppet Forge - PDK version](https://img.shields.io/puppetforge/pdk-version/bodgit/nut)](https://forge.puppetlabs.com/bodgit/nut)
 
 #### Table of Contents
 
@@ -23,7 +23,7 @@ Tested with Travis CI
 This module ensures that the Network UPS Tools (NUT) are installed and
 configured.
 
-RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 4.4.0 or
+RHEL/CentOS, Ubuntu, Debian and OpenBSD are supported using Puppet 5 or
 later.
 
 ## Setup
@@ -87,27 +87,29 @@ include ::nut:client
 The reference documentation is generated with
 [puppet-strings](https://github.com/puppetlabs/puppet-strings) and the latest
 version of the documentation is hosted at
-[https://bodgit.github.io/puppet-nut/](https://bodgit.github.io/puppet-nut/).
+[https://bodgit.github.io/puppet-nut/](https://bodgit.github.io/puppet-nut/)
+and available also in the [REFERENCE.md](https://github.com/bodgit/puppet-nut/blob/master/REFERENCE.md).
 
 ## Limitations
 
-This module has been built on and tested against Puppet 4.4.0 and higher.
+This module has been built on and tested against Puppet 5 and higher.
 
 The module has been tested on:
 
 * RedHat Enterprise Linux 6/7
 * Ubuntu 14.04/16.04
-* Debian 7/8
+* Debian 8
 * OpenBSD 6.0
 
 ## Development
 
-The module has both [rspec-puppet](http://rspec-puppet.com) and
+The module relies on [PDK](https://puppet.com/docs/pdk/1.x/pdk.html) and has
+both [rspec-puppet](http://rspec-puppet.com) and
 [beaker-rspec](https://github.com/puppetlabs/beaker-rspec) tests. Run them
 with:
 
 ```
-$ bundle exec rake test
+$ bundle exec rake spec
 $ PUPPET_INSTALL_TYPE=agent PUPPET_INSTALL_VERSION=x.y.z bundle exec rake beaker:<nodeset>
 ```
 
