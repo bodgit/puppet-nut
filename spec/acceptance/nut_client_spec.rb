@@ -99,10 +99,12 @@ describe 'nut::client' do
     it { is_expected.to be_mode 640 }
     it { is_expected.to be_owned_by 'root' }
     it { is_expected.to be_grouped_into group }
+    # rubocop:disable RepeatedDescription
     its(:content) { is_expected.to match %r{^PIPEFN #{state_dir}\/upssched\/upssched\.pipe$} }
     its(:content) { is_expected.to match %r{^LOCKFN #{state_dir}\/upssched\/upssched\.lock$} }
     its(:content) { is_expected.to match %r{^AT COMMBAD \* START-TIMER upsgone 10$} }
     its(:content) { is_expected.to match %r{^AT COMMOK dummy@localhost CANCEL-TIMER upsgone$} }
+    # rubocop:enable RepeatedDescription
   end
 
   describe file("#{state_dir}/upssched") do

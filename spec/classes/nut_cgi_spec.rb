@@ -14,6 +14,8 @@ describe 'nut::cgi' do
   end
 
   on_supported_os.each do |os, facts|
+    # rubocop:disable EmptyExampleGroup
+
     context "on #{os}" do
       let(:facts) do
         facts
