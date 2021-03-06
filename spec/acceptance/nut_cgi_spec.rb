@@ -173,7 +173,9 @@ describe 'nut::cgi' do
 
   describe command("curl '#{url}'") do
     its(:exit_status) { is_expected.to eq 0 }
+    # rubocop:disable RepeatedDescription
     its(:stdout) { is_expected.to match %r{^<FONT SIZE="\+2">Dummy UPS<\/FONT>$} }
     its(:stdout) { is_expected.to match %r{^<TD>Smart-UPS 1000<br><\/TD>$} }
+    # rubocop:enable RepeatedDescription
   end
 end
