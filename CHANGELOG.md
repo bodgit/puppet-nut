@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [v2.0.1](https://github.com/bodgit/puppet-nut/tree/v2.0.1) (2021-03-06)
+
+[Full Changelog](https://github.com/bodgit/puppet-nut/compare/v2.0.0...v2.0.1)
+
+### Added
+
+- Support Puppet 7.x [\#13](https://github.com/bodgit/puppet-nut/pull/13) ([bodgit](https://github.com/bodgit))
+- Update to PDK 2.0.0 [\#12](https://github.com/bodgit/puppet-nut/pull/12) ([bodgit](https://github.com/bodgit))
+
 ## [v2.0.0](https://github.com/bodgit/puppet-nut/tree/v2.0.0) (2020-11-12)
 
 [Full Changelog](https://github.com/bodgit/puppet-nut/compare/v1.0.3...v2.0.0)
