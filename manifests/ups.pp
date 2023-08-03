@@ -31,7 +31,7 @@ define nut::ups (
   }
 
   # Handle SNMP or XML UPS drivers
-  if has_key($::nut::driver_packages, $driver) {
+  if $driver in $::nut::driver_packages {
     ensure_packages([$::nut::driver_packages[$driver]])
 
     Package[$::nut::driver_packages[$driver]]
